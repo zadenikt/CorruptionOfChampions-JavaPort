@@ -6,8 +6,8 @@ Fenoxo's Corruption Of Champions, ported to Java.
 Authors
 -------
 
-Original game created by Fenoxo
-Port written by Zadenikt
+ * Original game created by Fenoxo
+ * Port written by Zadenikt
 
 TODOs
 -----
