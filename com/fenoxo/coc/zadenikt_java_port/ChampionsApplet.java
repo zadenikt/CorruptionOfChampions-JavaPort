@@ -1,8 +1,5 @@
 package com.fenoxo.coc.zadenikt_java_port;
 
-import java.awt.BorderLayout;
-import java.awt.Graphics;
-import java.awt.Panel;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -70,10 +67,15 @@ public class ChampionsApplet extends JApplet {
 			doc.insertString(doc.getLength(), text, null);
 		} catch(Exception ex) {
 			ex.printStackTrace();
-			this.text.setText("<b color=\"red\">Some error of some sort happened.</b>");
+			this.text.setText("<b color=\"red\">Some error of some sort happened:</b>" + ex.getMessage());
 		}
 	}
 	public void clear() { this.text.setText(""); }
 	public void log(String text) { System.out.println(text); }
 	public void log(Object obj) { this.log(obj.toString()); }
+	
+	public static void main(String ... args) {
+		thisApplet = new ChampionsApplet();
+		thisApplet.setVisible(true);
+	}
 }

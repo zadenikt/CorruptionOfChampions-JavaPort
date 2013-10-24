@@ -11,12 +11,25 @@ public class Appearance extends Scene {
 		//Race
 		if(Race.getRace(me) != Race.HUMAN) applet.write("You began your journey as a human, but gave that up as you explored the dangers of this realm. ");
 		//Height
-		applet.write("You are a " + (me.height/12) + " foot " + (me.tallness%12) + " inch tall " + Race.get(me) + ", with " + me.bodyType() + ".");
+		applet.write("You are a " + (me.height/12) + " foot " + (me.height%12) + " inch tall " + Race.get(me) + ", with " + me.bodyType() + ". ");
 		//Equipment
-		applet.write("<b>You are currently wearing your " + me.getArmour().name + " and using your " + me.getWeapon().name + " as a weapon.</b>");
+		applet.write("<b>You are currently wearing your " + me.getArmour().name + " and using your " + me.getWeapon().name + " as a weapon.</b> ");
 		//Faces
 		switch(me.face) {
 		case FOX:
+			applet.write("You have a tapered, shrewd-looking vulpine face with a speckling of downward-curved whiskers just behind the nose. ");
+			switch(me.skin.getType()) {
+			case NORMAL:
+			default:
+				applet.write("Oddly enough, there's no fur on your animalistic muzzle, just " + me.skin.describe() + ". ");
+				break;
+			case FUR:
+				applet.write("A coat of " + me.skin.describe() + " decorates your muzzle. ");
+				break;
+			case SCALES:
+				applet.write("Strangely, " + me.skin.describe() + " adorn every inch of your animalistic visage. ");
+				break;
+			}
 			break;
 		}
 		/*if(me.faceType == 0 || me.faceType == 4 || me.faceType == 8 || me.faceType == 10) {
@@ -26,12 +39,6 @@ public class Appearance extends Scene {
 			if(me.faceType == 4) applet.write("  A set of razor-sharp, retractable shark-teeth fill your mouth and gives your visage a slightly angular appearance.", false);
 			else if(me.faceType == 8) applet.write("  The constant twitches of your nose and the length of your incisors gives your visage a hint of bunny-like cuteness.", false);
 			else if(me.faceType == 10) applet.write("  A set of retractable, needle-like fangs sit in place of your canines and are ready to dispense their venom.", false);
-		}
-		else if(me.faceType == 11) {
-			applet.write("  You have a tapered, shrewd-looking vulpine face with a speckling of downward-curved whiskers just behind the nose.");
-			if(me.skinType == 0) applet.write("  Oddly enough, there's no fur on your animalistic muzzle, just " + me.skinFurScales() + "."); 
-			else if(me.skinType == 1) applet.write("  A coat of " + me.skinFurScales() + " decorates your muzzle.");
-			else if(me.skinType == 2) applet.write("  Strangely, " + me.skinFurScales() + " adorn every inch of your animalistic visage.");
 		}
 		//Naga
 		if(me.faceType == 5) {

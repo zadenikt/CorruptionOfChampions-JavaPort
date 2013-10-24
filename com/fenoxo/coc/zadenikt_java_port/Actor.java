@@ -268,6 +268,76 @@ public abstract class Actor {
 		this.addItem(this.armour);
 		this.armour = null;
 	}
+	//Descriptions
+	public String describeBodyType() {
+		String out = "";
+		if(this.thickness < 10) {
+			if(this.tone > 90) out += "a lithe body covered in highly visible muscles";
+			else if(this.tone > 75) out += "an incredibly thin, well-muscled frame";
+			else if(this.tone > 50) out += "a very thin body that has a good bit of muscle definition";
+			else if(this.tone > 25) out += "a lithe body and only a little bit of muscle definition";
+			else out += "a waif-thin body, and soft, forgiving flesh";
+		}
+		else if(this.thickness < 25) {
+			if(this.tone > 90) out += "a thin body and incredible muscle definition";
+			else if(tone > 75) out += "a narrow frame that shows off your muscles";
+			else if(tone > 50) out += "a somewhat lithe body and a fair amount of definition";
+			else if(tone > 25) out += "a narrow, soft body that still manages to show off a few muscles";
+			else out += "a thin, soft body";
+		}
+		//Somewhat thin
+		else if(thickness < 40) {
+			if(tone > 90) out += "a fit, somewhat thin body and rippling muscles all over";
+			else if(tone > 75) out += "a thinner-than-average frame and great muscle definition";
+			else if(tone > 50) out += "a somewhat narrow body and a decent amount of visible muscle";
+			else if(tone > 25) out += "a moderately thin body, soft curves, and only a little bit of muscle";
+			else out += "a fairly thin form and soft, cuddle-able flesh";
+		}
+		//average
+		else if(thickness < 60) {
+			if(tone > 90) out += "average thickness and a bevy of perfectly defined muscles";
+			else if(tone > 75) out += "an average-sized frame and great musculature";
+			else if(tone > 50) out += "a normal waistline and decently visible muscles";
+			else if(tone > 25) out += "an average body and soft, unremarkable flesh";
+			else out += "an average frame and soft, untoned flesh with a tendency for jiggle";
+		}
+		else if(thickness < 75) {
+			if(tone > 90) out += "a somewhat thick body that's covered in slabs of muscle";
+			else if(tone > 75) out += "a body that's a little bit wide and has some highly-visible muscles";
+			else if(tone > 50) out += "a solid build that displays a decent amount of muscle";
+			else if(tone > 25) out += "a slightly wide frame that displays your curves and has hints of muscle underneath";
+			else out += "a soft, plush body with plenty of jiggle";
+		}
+		else if(thickness < 90) {
+			if(tone > 90) out += "a thickset frame that gives you the appearance of a wall of muscle";
+			else if(tone > 75) out += "a burly form and plenty of muscle definition";
+			else if(tone > 50) out += "a solid, thick frame and a decent amount of muscles";
+			else if(tone > 25) out += "a wide-set body, some soft, forgiving flesh, and a hint of muscle underneath it";
+			else {
+				out += "a wide, cushiony body";
+				if(gender >= 2 || biggestTitSize() > 3 || hipRating > 7 || buttRating > 7) out += " and plenty of jiggle on your curves";
+			}
+		}
+		//Chunky monkey
+		else {
+			if(tone > 90) out += "an extremely thickset frame and so much muscle others would find you harder to move than a huge boulder";
+			else if(tone > 75) out += "a very wide body and enough muscle to make you look like a tank";
+			else if(tone > 50) out += "an extremely substantial frame packing a decent amount of muscle";
+			else if(tone > 25) {
+				out += "a very wide body";
+				if(gender >= 2 || biggestTitSize() > 4 || hipRating > 10 || buttRating > 10) out += ", lots of curvy jiggles,";
+				out += " and hints of muscle underneath";
+			}
+			else {
+				out += "a thick";
+				if(gender >= 2 || biggestTitSize() > 4 || hipRating > 10 || buttRating > 10) out += ", voluptuous";
+				out += " body and plush, ";
+				if(gender >= 2 || biggestTitSize() > 4 || hipRating > 10 || buttRating > 10) out += " jiggly curves";
+				else out += " soft flesh";   
+			}
+		}
+		return out;
+	}
 	//Scores
 	public int humanScore() {
 		int score = 0;

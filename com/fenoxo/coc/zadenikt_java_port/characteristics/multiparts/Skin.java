@@ -15,6 +15,11 @@ public class Skin {
 	public Type getType() { return type; }
 	public void setTone(Tone tone) { this.tone = tone; }
 	public Tone getTone() { return tone; }
+	
+	public String describe() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public enum Type {
 		NORMAL,
