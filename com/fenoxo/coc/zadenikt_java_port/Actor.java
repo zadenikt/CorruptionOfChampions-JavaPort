@@ -18,7 +18,6 @@ import com.fenoxo.coc.zadenikt_java_port.characteristics.multiparts.Hair;
 import com.fenoxo.coc.zadenikt_java_port.characteristics.multiparts.Skin;
 import com.fenoxo.coc.zadenikt_java_port.characteristics.multiparts.Tail;
 import com.fenoxo.coc.zadenikt_java_port.characteristics.multiparts.Vagina;
-import com.fenoxo.coc.zadenikt_java_port.characteristics.multiparts.Tail.Type;
 import com.fenoxo.coc.zadenikt_java_port.equipment.Armour;
 import com.fenoxo.coc.zadenikt_java_port.equipment.Item;
 import com.fenoxo.coc.zadenikt_java_port.equipment.Weapon;
@@ -30,7 +29,7 @@ import com.fenoxo.coc.zadenikt_java_port.equipment.Weapon;
  */
 
 public abstract class Actor {
-	// TODO Make all public variables private.
+	// TODO Make all public variables protected.
 	protected String name, description;
 	protected int strength, toughness, speed, intelligence, libido, sensitivity;
 	public int corruption;
@@ -43,7 +42,6 @@ public abstract class Actor {
 	protected Weapon weapon;
 	protected Armour armour;
 	
-	//TODO Make OOP style.
 	protected Item itemSlots[] = {null, null, null}; //This can be increased by setItemSlotsMax()
 	protected int itemSlotCounts[] = {0, 0, 0};
 	
@@ -86,8 +84,8 @@ public abstract class Actor {
 	
 	public int getMaxHealth() {
 		int max = 50 + (2 * this.getToughness());
-		if(this.hasPerk(Perk.TANK)) max += 50;
-		if(this.hasPerk(Perk.TANK_2)) max += this.getToughness();
+		if(this.hasPerk(Perk.UNSORTED_TANK)) max += 50;
+		if(this.hasPerk(Perk.UNSORTED_TANK_2)) max += this.getToughness();
 		max += 15 * ((this.getLevel() <= 20) ? this.getLevel() : 20);
 		return ((max > 999) ? 999 : max);
 	}
@@ -117,6 +115,18 @@ public abstract class Actor {
 	public Vagina ifNoVaginaMakeOne(Vagina vagina) {
 		if(!this.hasVagina()) this.setVagina(vagina);
 		return this.getVagina();
+	}
+	public double getVaginaCapacity() {
+		if(this.getVagina() == null) return 0;
+		double capacity = 0.0;
+		if(this.lowerBody == LowerBodyType.NAGA)		capacity += 20.0;
+		if(this.lowerBody == LowerBodyType.CENTAUR)		capacity += 50.0;
+		if(this.hasPerk(Perk.GIFT_WET_PUSSY))			capacity += 20.0;
+		if(this.hasPerk(Perk.HISTORY_SLUT))				capacity += 20.0;
+		if(this.hasPerk(Perk.UNSORTED_ONE_TRACK_MIND))	capacity += 10.0;
+		if(this.hasPerk(Perk.HOLIDAY_CORNUCOPIA))		capacity += 30.0;
+		capacity += (8 * this.vagina.getLooseness()) * (1 + (this.vagina.getWetness() / 10));
+		return capacity;
 	}
 
 	public int getBreastRowsCount() { return this.breasts.size(); }
@@ -220,7 +230,7 @@ public abstract class Actor {
 		}
 		return -1;
 	}
-	public void setItemSlotsMax(int n) { //TODO See if there's any way to optimize
+	public void setItemSlotsMax(int n) {
 		if(this.itemSlots.length == n) return;
 		Item oldSlots[] = new Item[this.itemSlots.length];
 		int oldCounts[] = new int[this.itemSlots.length];
@@ -316,7 +326,7 @@ public abstract class Actor {
 			else if(this.tone > 25) out += "a wide-set body, some soft, forgiving flesh, and a hint of muscle underneath it";
 			else {
 				out += "a wide, cushiony body";
-				if(Gender.get(this) == Gender.HERM || this.biggestTitSize() > 3 || this.hips > 7 || this.butt > 7) out += " and plenty of jiggle on your curves";
+				if(Gender.get(this) == Gender.HERM || this.largestBreasts().getSize() > 3 || this.hips > 7 || this.butt > 7) out += " and plenty of jiggle on your curves";
 			}
 		}
 		//Chunky monkey
@@ -326,14 +336,14 @@ public abstract class Actor {
 			else if(this.tone > 50) out += "an extremely substantial frame packing a decent amount of muscle";
 			else if(this.tone > 25) {
 				out += "a very wide body";
-				if(Gender.get(this) == Gender.HERM || this.biggestTitSize() > 4 || this.hips > 10 || this.butt > 10) out += ", lots of curvy jiggles,";
+				if(Gender.get(this) == Gender.HERM || this.largestBreasts().getSize() > 4 || this.hips > 10 || this.butt > 10) out += ", lots of curvy jiggles,";
 				out += " and hints of muscle underneath";
 			}
 			else {
 				out += "a thick";
-				if(Gender.get(this) == Gender.HERM || this.biggestTitSize() > 4 || this.hips > 10 || this.butt > 10) out += ", voluptuous";
+				if(Gender.get(this) == Gender.HERM || this.largestBreasts().getSize() > 4 || this.hips > 10 || this.butt > 10) out += ", voluptuous";
 				out += " body and plush, ";
-				if(Gender.get(this) == Gender.HERM || this.biggestTitSize() > 4 || this.hips > 10 || this.butt > 10) out += " jiggly curves";
+				if(Gender.get(this) == Gender.HERM || this.largestBreasts().getSize() > 4 || this.hips > 10 || this.butt > 10) out += " jiggly curves";
 				else out += " soft flesh";   
 			}
 		}
@@ -399,8 +409,8 @@ public abstract class Actor {
 	}
 	public int beeScore() {
 		int score = 0;
-		if(this.hair.getColor() == Hair.Color.SHINY_BLACK) score++;
-		if(this.hair.getColor() == Hair.Color.BLACK_AND_YELLOW) score++;
+		if(this.hair.getColour() == Hair.Colour.SHINY_BLACK) score++;
+		if(this.hair.getColour() == Hair.Colour.BLACK_AND_YELLOW) score++;
 		if(this.antennae) {
 			score++;
 			if(this.face == FaceType.NORMAL) score++;
@@ -484,8 +494,21 @@ public abstract class Actor {
 	}
 	public int kitsuneScore() {
 		int score = 0;
-		throw new RuntimeException("kitsune");
-		//return score;
+		if(this.ears == EarType.FOX) score++;
+		if(this.tail.getType() == Tail.Type.FOX) score++;
+		if(this.tail.getType() == Tail.Type.FOX && this.tail.getVenom() >= 2.0) score += 2;
+		if(this.getVaginaCapacity() >= 8000) score++;
+		if(score > 0 && this.face == FaceType.NORMAL) score++;
+		if(score > 0 && (this.hair.getColour() == Hair.Colour.GOLDEN_BLONDE || this.hair.getColour() == Hair.Colour.BLACK || this.hair.getColour() == Hair.Colour.RED || this.hair.getColour() == Hair.Colour.WHITE || this.hair.getColour() == Hair.Colour.SILVER_BLONDE)) score++;
+		if(score > 0 && this.femininity >= 40) score++;
+		
+		if(this.skin.getType() == Skin.Type.NORMAL) score--;
+		else if(this.skin.getType() != Skin.Type.FUR) score -= 2;
+		if(this.lowerBody != LowerBodyType.NORMAL) score--;
+		if(this.face != FaceType.NORMAL) score--;
+		if(this.ears != EarType.FOX) score--;
+		if(this.tail.getType() != Tail.Type.FOX) score--;
+		return score;
 	}
 	public int dragonScore() {
 		int score = 0;
@@ -536,45 +559,11 @@ public abstract class Actor {
 		if(this.hasCock() && this.hasVagina()) score++;
 		if(this.hasFuckableNipples()) score++;
 		if(this.getBreastRowsCount() > 1) score++;
-		return score - 1;
+		if(score > 0) score--;
+		return score;
 	}
 	//ACTIONSCRIPT { TODO
 	/*
-	public function kitsuneScore():Number {
-		var kitsuneCounter:int = 0;
-		//If the character has fox ears, +1
-		if(earType == 9) kitsuneCounter++;
-		//If the character has a fox tail, +1
-		if(tailType == 13) kitsuneCounter++;
-		//If the character has two or more fox tails, +2
-		if(tailType == 13 && tailVenom >= 2) kitsuneCounter += 2;
-		//If the character has tattooed skin, +1
-		//9999
-		//If the character has a 'vag of holding', +1
-		if(vaginalCapacity() >= 8000) kitsuneCounter++;
-		//If the character's kitsune score is greater than 0 and:
-		//If the character has a normal face, +1
-		if(kitsuneCounter > 0 && faceType == 0) kitsuneCounter++;
-		//If the character's kitsune score is greater than 1 and:
-		//If the character has "blonde","black","red","white", or "silver" hair, +1
-		if(kitsuneCounter > 0 && (hairColor == "golden blonde" || hairColor == "black" || hairColor == "red" || hairColor == "white" || hairColor == "silver blonde")) kitsuneCounter++;
-		//If the character's femininity is 40 or higher, +1
-		if(kitsuneCounter > 0 && femininity >= 40) kitsuneCounter++;
-		//If the character has fur, scales, or gooey skin, -1
-		if(skinType > 1) kitsuneCounter -= 2;
-		if(skinType == 1) kitsuneCounter--;
-		//If the character has abnormal legs, -1
-		if(lowerBody != 0) kitsuneCounter--;
-		//If the character has a nonhuman face, -1
-		if(faceType != 0) kitsuneCounter--;
-		//If the character has ears other than fox ears, -1
-		if(earType != 9) kitsuneCounter--;
-		//If the character has tail(s) other than fox tails, -1
-		if(tailType != 13) kitsuneCounter--;
-		
-		return kitsuneCounter;
-
-	}
 	//Determine Horse Rating
 	public function dragonScore():Number {
 		var dragonCounter:Number = 0;
@@ -668,7 +657,7 @@ public abstract class Actor {
 		if(tailType == 7) sharkCounter++;
 		return sharkCounter;
 	}/*/
-		//} TODO
+	
 	//DEBUG FOLLOWETH
 	public void printInventory() {
 		for(int i = 0; i < this.itemSlots.length; i++) {

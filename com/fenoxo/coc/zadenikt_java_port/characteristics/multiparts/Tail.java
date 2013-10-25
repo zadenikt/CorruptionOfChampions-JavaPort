@@ -29,7 +29,7 @@ public class Tail {
 		RABBIT,
 		HARPY,
 		KANGAROO,
-		FOX,
+		FOX(true, 0.0), // For counting tails :/
 		DRAGON;
 		
 		public final boolean hasVenom;
