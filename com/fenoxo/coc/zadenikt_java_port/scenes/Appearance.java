@@ -11,7 +11,7 @@ public class Appearance extends Scene {
 		//Race
 		if(Race.getRace(me) != Race.HUMAN) applet.write("You began your journey as a human, but gave that up as you explored the dangers of this realm. ");
 		//Height
-		applet.write("You are a " + (me.height/12) + " foot " + (me.height%12) + " inch tall " + Race.get(me) + ", with " + me.bodyType() + ". ");
+		applet.write("You are a " + (me.height/12) + " foot " + (me.height%12) + " inch tall " + Race.get(me) + ", with " + me.describeBodyType() + ". ");
 		//Equipment
 		applet.write("<b>You are currently wearing your " + me.getArmour().name + " and using your " + me.getWeapon().name + " as a weapon.</b> ");
 		//Faces
