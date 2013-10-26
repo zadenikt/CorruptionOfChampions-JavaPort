@@ -47,8 +47,7 @@ public abstract class Actor {
 	
 	public double femininity, height, thickness, tone;
 	public double hips, butt;
-	//protected Gender gender = Gender.get(this); //Will be done "on-the-fly" instead.
-	//TODO Not put a beard in, but leave this todo here just in case.
+	//Don't put a beard in (abandoned feature), but leave this todo here just in case.
 	public Hair hair;
 	public EyeType eyes;
 	public Skin skin;
@@ -61,7 +60,7 @@ public abstract class Actor {
 	public LowerBodyType lowerBody;
 	public Tail tail;
 	public boolean antennae;
-	//TODO Put in gills if needed.
+	//TODO Put in gills if they actually exist.
 	//TODO Piercings
 	public List<Cock> cocks = new ArrayList<Cock>();
 	public List<BreastRow> breasts = new ArrayList<BreastRow>();
@@ -84,8 +83,8 @@ public abstract class Actor {
 	
 	public int getMaxHealth() {
 		int max = 50 + (2 * this.getToughness());
-		if(this.hasPerk(Perk.UNSORTED_TANK)) max += 50;
-		if(this.hasPerk(Perk.UNSORTED_TANK_2)) max += this.getToughness();
+		if(this.hasPerk(Perk.LEVELUP_TANK)) max += 50;
+		if(this.hasPerk(Perk.LEVELUP_TANK_2)) max += this.getToughness();
 		max += 15 * ((this.getLevel() <= 20) ? this.getLevel() : 20);
 		return ((max > 999) ? 999 : max);
 	}
@@ -100,11 +99,13 @@ public abstract class Actor {
 	public int getLevelTease() { return this.levelTease; }
 	public int getXPTease() { return this.xpTease; }
 	public int getXPToLevelUpTease() {
-		if(this.getLevelTease() >= 5) return -1; //TODO Something better than _this_. Maybe (int)Double.POSITIVE_INFINTY?
-		return (int)(Math.floor(10 + (5 * Math.pow(this.getLevelTease() + 1, 2)))); // Is this the right formula? *Shudder*...
+		if(this.getLevelTease() >= 5) return -1;
+		return (int)(Math.floor(10 + (5 * Math.pow(this.getLevelTease() + 1, 2)))); // TODO Is this the right formula? *Shudder*...
 	}
 	public int getXPToLevelUpTeaseRemaining() { return this.getXPToLevelUpTease() - this.getXPTease(); }
-
+	
+	public Gender getGender() { return Gender.get(this); }
+	
 	public int getCockCount() { return this.cocks.size(); }
 	public boolean hasCock() { return this.getCockCount() > 0; }
 	
@@ -123,7 +124,7 @@ public abstract class Actor {
 		if(this.lowerBody == LowerBodyType.CENTAUR)		capacity += 50.0;
 		if(this.hasPerk(Perk.GIFT_WET_PUSSY))			capacity += 20.0;
 		if(this.hasPerk(Perk.HISTORY_SLUT))				capacity += 20.0;
-		if(this.hasPerk(Perk.UNSORTED_ONE_TRACK_MIND))	capacity += 10.0;
+		if(this.hasPerk(Perk.HOLIDAY_ONE_TRACK_MIND))	capacity += 10.0;
 		if(this.hasPerk(Perk.HOLIDAY_CORNUCOPIA))		capacity += 30.0;
 		capacity += (8 * this.vagina.getLooseness()) * (1 + (this.vagina.getWetness() / 10));
 		return capacity;

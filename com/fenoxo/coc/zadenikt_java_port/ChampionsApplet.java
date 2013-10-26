@@ -52,7 +52,7 @@ public class ChampionsApplet extends JApplet {
 		me.unequipWeapon();
 		me.printInventory();
 		System.out.println(this.text.getText());
-		this.write("aaabacadaeafagahaiajak<i>al</i>amanaoapaqarasatauavawaxayaz");
+		this.write("TESTINGGGG<i>inItAlIcS</i>amanaoadsfahfjuy<b>AndBOLD<u>WITHUNDERLINES</u></b>paqarasatauavawaxayaz");
 		System.out.println(this.text.getText());
 	}
 	

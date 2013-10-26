@@ -3,7 +3,7 @@ package com.fenoxo.coc.zadenikt_java_port;
 public class Perk {
 	public static final Perk NULL = 					null; // Essentially, debug.
 	
-	// I added changed the gifts to "Gift: PerkName". Because I sez so.
+	// Gifts, chosen on creation.
 	public static final Perk GIFT_STRONG =				new Perk("Gift: Strong");
 	public static final Perk GIFT_TOUGH =				new Perk("Gift: Tough");
 	public static final Perk GIFT_FAST =				new Perk("Gift: Fast");
@@ -16,7 +16,7 @@ public class Perk {
 	public static final Perk GIFT_BIG_CLIT =			new Perk("Gift: Big Clit");
 	public static final Perk GIFT_FERTILE =				new Perk("Gift: Fertile");
 	public static final Perk GIFT_WET_PUSSY =			new Perk("Gift: Wet Pussy");
-	
+	// Histories, chosen on creation.
 	public static final Perk HISTORY_ALCHEMIST =		new Perk("History: Alchemist");
 	public static final Perk HISTORY_FIGHTER =			new Perk("History: Fighter");
 	public static final Perk HISTORY_HEALER =			new Perk("History: Healer");
@@ -26,12 +26,12 @@ public class Perk {
 	public static final Perk HISTORY_SLUT =				new Perk("History: Slut");
 	public static final Perk HISTORY_SMITH =			new Perk("History: Smith");
 	public static final Perk HISTORY_WHORE =			new Perk("History: Whore");
-	
-	public static final Perk UNSORTED_TANK =			new Perk("Tank");
-	public static final Perk UNSORTED_TANK_2 =			new Perk("Tank 2");
-	public static final Perk UNSORTED_ONE_TRACK_MIND =	new Perk("One Track Mind");
-	
+	// "Normal" perks, gained through the Perk menu.
+	public static final Perk LEVELUP_TANK =				new Perk("Tank");
+	public static final Perk LEVELUP_TANK_2 =			new Perk("Tank 2");
+	// Holiday perks, given on... holidays.
 	public static final Perk HOLIDAY_CORNUCOPIA =		new Perk("Cornucopia");
+	public static final Perk HOLIDAY_ONE_TRACK_MIND =	new Perk("One Track Mind");
 	
 	protected String name;
 	

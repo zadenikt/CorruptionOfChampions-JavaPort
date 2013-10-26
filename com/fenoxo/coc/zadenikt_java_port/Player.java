@@ -23,4 +23,8 @@ public class Player extends Actor {
 		this.xpTease = 0;
 		this.levelTease = 1;
 	}
+	
+	public Player setNotes(String notes) { this.notes = notes; return this; }
+	
+	public String getNotes() { return this.notes; }
 }
