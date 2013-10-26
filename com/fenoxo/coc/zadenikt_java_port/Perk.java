@@ -40,11 +40,11 @@ public class Perk {
 		this.name = name;
 	}
 
-	public void add(ChampionsApplet applet, Actor me) {
-		applet.log(me.toString() + " got the perk " + this.name+ "!");
+	public void add(Actor me) {
+		System.out.println(me.toString() + " got the perk " + this.name+ "!");
 	}
-	public void remove(ChampionsApplet applet, Actor me) {
-		applet.log(me.toString() + " lost the perk " + this.name + "!");
+	public void remove(Actor me) {
+		System.out.println(me.toString() + " lost the perk " + this.name + "!");
 	}
 	
 	//For overriding:

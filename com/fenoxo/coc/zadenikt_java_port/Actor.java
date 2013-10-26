@@ -175,13 +175,13 @@ public abstract class Actor {
 	public void addPerk(Perk p) {
 		if(!this.hasPerk(p)) {
 			this.perks.add(p);
-			p.add(ChampionsApplet.thisApplet, this);
+			p.add(this);
 		}
 	}
 	public void removePerk(Perk p) {
 		if(this.hasPerk(p)) {
 			this.perks.remove(p);
-			p.remove(ChampionsApplet.thisApplet, this);
+			p.remove(this);
 		}
 	}
 	public boolean hasPerk(Perk p) {
@@ -190,14 +190,14 @@ public abstract class Actor {
 	public boolean addItem(Item i) { //TODO Add inventory toss-out.
 		int slot = this.firstEmptyItemSlot();
 		if(slot == -1) {
-			ChampionsApplet.thisApplet.log(this.toString() + " would've got the item " + i.name + ", but their inventory is full!");
+			System.out.println(this.toString() + " would've got the item " + i.name + ", but their inventory is full!");
 			return false;
-		} else {
-			ChampionsApplet.thisApplet.log(this.toString() + " got the item " + i.name + "!");
-			this.itemSlots[slot] = i;
-			this.itemSlotCounts[slot] = 1;
-			return true;
 		}
+		
+		System.out.println(this.toString() + " got the item " + i.name + "!");
+		this.itemSlots[slot] = i;
+		this.itemSlotCounts[slot] = 1;
+		return true;
 	}
 	public void removeItem(int slot) {
 		if(this.itemSlots[slot - 1] == null) {
@@ -255,11 +255,11 @@ public abstract class Actor {
 	public void equipWeapon(Weapon w) {
 		this.unequipWeapon();
 		this.weapon = w;
-		ChampionsApplet.thisApplet.log(this.toString() + " equipped the weapon " + this.weapon.name + "!");
+		System.out.println(this.toString() + " equipped the weapon " + this.weapon.name + "!");
 	}
 	public void unequipWeapon() {
 		if(this.weapon == null) return;
-		ChampionsApplet.thisApplet.log(this.toString() + " unequipped the weapon " + this.weapon.name + "!");
+		System.out.println(this.toString() + " unequipped the weapon " + this.weapon.name + "!");
 		this.addItem(this.weapon);
 		this.weapon = null;
 	}
@@ -272,11 +272,11 @@ public abstract class Actor {
 	public void equipArmour(Armour a) {
 		this.unequipArmour();
 		this.armour = a;
-		ChampionsApplet.thisApplet.log(this.toString() + " equipped the armour " + a.name + "!");
+		System.out.println(this.toString() + " equipped the armour " + a.name + "!");
 	}
 	public void unequipArmour() {
 		if(this.armour == null) return;
-		ChampionsApplet.thisApplet.log(this.toString() + " unequipped the armour " + this.armour.name + "!");
+		System.out.println(this.toString() + " unequipped the armour " + this.armour.name + "!");
 		this.addItem(this.armour);
 		this.armour = null;
 	}
@@ -662,7 +662,7 @@ public abstract class Actor {
 	//DEBUG FOLLOWETH
 	public void printInventory() {
 		for(int i = 0; i < this.itemSlots.length; i++) {
-			ChampionsApplet.thisApplet.log((i + 1) + " - " + this.itemSlotCounts[i] + "x" + (this.itemSlots[i] == null ? "Empty" : this.itemSlots[i].name));
+			System.out.println((i + 1) + " - " + this.itemSlotCounts[i] + "x" + (this.itemSlots[i] == null ? "Empty" : this.itemSlots[i].name));
 		}
 	}
 }
