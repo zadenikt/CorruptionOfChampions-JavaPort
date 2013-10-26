@@ -2,32 +2,33 @@ package com.fenoxo.coc.zadenikt_java_port.scenes;
 
 import com.fenoxo.coc.zadenikt_java_port.Actor;
 import com.fenoxo.coc.zadenikt_java_port.ChampionsApplet;
+import com.fenoxo.coc.zadenikt_java_port.Game;
 import com.fenoxo.coc.zadenikt_java_port.Player;
 import com.fenoxo.coc.zadenikt_java_port.characteristics.Race;
 
-public class Appearance extends Scene {
-	public void displayText(ChampionsApplet applet, Player me, Actor enemy) {
-		applet.clear();
+public class Appearance implements Scene {
+	public void displayText(Player me, Actor enemy) {
+		Game.getUI().clear();
 		//Race
-		if(Race.getRace(me) != Race.HUMAN) applet.write("You began your journey as a human, but gave that up as you explored the dangers of this realm. ");
+		if(Race.getRace(me) != Race.HUMAN) Game.getUI().write("You began your journey as a human, but gave that up as you explored the dangers of this realm. ");
 		//Height
-		applet.write("You are a " + (me.height/12) + " foot " + (me.height%12) + " inch tall " + Race.get(me) + ", with " + me.describeBodyType() + ". ");
+		Game.getUI().write("You are a " + (me.height/12) + " foot " + (me.height%12) + " inch tall " + Race.get(me) + ", with " + me.describeBodyType() + ". ");
 		//Equipment
-		applet.write("<b>You are currently wearing your " + me.getArmour().name + " and using your " + me.getWeapon().name + " as a weapon.</b> ");
+		Game.getUI().write("<b>You are currently wearing your " + me.getArmour().name + " and using your " + me.getWeapon().name + " as a weapon.</b> ");
 		//Faces
 		switch(me.face) {
 		case FOX:
-			applet.write("You have a tapered, shrewd-looking vulpine face with a speckling of downward-curved whiskers just behind the nose. ");
+			Game.getUI().write("You have a tapered, shrewd-looking vulpine face with a speckling of downward-curved whiskers just behind the nose. ");
 			switch(me.skin.getType()) {
 			case NORMAL:
 			default:
-				applet.write("Oddly enough, there's no fur on your animalistic muzzle, just " + me.skin.describe() + ". ");
+				Game.getUI().write("Oddly enough, there's no fur on your animalistic muzzle, just " + me.skin.describe() + ". ");
 				break;
 			case FUR:
-				applet.write("A coat of " + me.skin.describe() + " decorates your muzzle. ");
+				Game.getUI().write("A coat of " + me.skin.describe() + " decorates your muzzle. ");
 				break;
 			case SCALES:
-				applet.write("Strangely, " + me.skin.describe() + " adorn every inch of your animalistic visage. ");
+				Game.getUI().write("Strangely, " + me.skin.describe() + " adorn every inch of your animalistic visage. ");
 				break;
 			}
 			break;
@@ -708,8 +709,8 @@ public class Appearance extends Scene {
 		}
 		//MONEY!
 		 * */
-		if(me.gems == 0) applet.write("\n\n<b>Your money-purse is devoid of any currency.");
-		if(me.gems > 1) applet.write("\n\n<b>You have " + me.gems + " shining gems, collected in your travels.");
-		if(me.gems == 1) applet.write("\n\n<b>You have " + me.gems + " shining gem, collected in your travels.");
+		if(me.gems == 0) Game.getUI().write("\n\n<b>Your money-purse is devoid of any currency.");
+		if(me.gems > 1) Game.getUI().write("\n\n<b>You have " + me.gems + " shining gems, collected in your travels.");
+		if(me.gems == 1) Game.getUI().write("\n\n<b>You have " + me.gems + " shining gem, collected in your travels.");
 	}
 }
