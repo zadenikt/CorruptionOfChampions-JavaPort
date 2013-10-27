@@ -1,4 +1,4 @@
-package com.fenoxo.coc.zadenikt_java_port.characteristics.creation;
+package com.fenoxo.coc.zadenikt_java_port.characteristics;
 
 
 public enum BodyType {

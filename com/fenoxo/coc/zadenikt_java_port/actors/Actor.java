@@ -1,23 +1,25 @@
-package com.fenoxo.coc.zadenikt_java_port;
+package com.fenoxo.coc.zadenikt_java_port.actors;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fenoxo.coc.zadenikt_java_port.characteristics.ArmType;
+import com.fenoxo.coc.zadenikt_java_port.characteristics.BreastRow;
+import com.fenoxo.coc.zadenikt_java_port.characteristics.Cock;
 import com.fenoxo.coc.zadenikt_java_port.characteristics.EarType;
 import com.fenoxo.coc.zadenikt_java_port.characteristics.EyeType;
 import com.fenoxo.coc.zadenikt_java_port.characteristics.FaceType;
+import com.fenoxo.coc.zadenikt_java_port.characteristics.Gender;
+import com.fenoxo.coc.zadenikt_java_port.characteristics.Hair;
 import com.fenoxo.coc.zadenikt_java_port.characteristics.HornType;
 import com.fenoxo.coc.zadenikt_java_port.characteristics.LowerBodyType;
+import com.fenoxo.coc.zadenikt_java_port.characteristics.Perk;
+import com.fenoxo.coc.zadenikt_java_port.characteristics.Skin;
+import com.fenoxo.coc.zadenikt_java_port.characteristics.StatusEffect;
+import com.fenoxo.coc.zadenikt_java_port.characteristics.Tail;
 import com.fenoxo.coc.zadenikt_java_port.characteristics.TongueType;
+import com.fenoxo.coc.zadenikt_java_port.characteristics.Vagina;
 import com.fenoxo.coc.zadenikt_java_port.characteristics.WingType;
-import com.fenoxo.coc.zadenikt_java_port.characteristics.creation.Gender;
-import com.fenoxo.coc.zadenikt_java_port.characteristics.multiparts.BreastRow;
-import com.fenoxo.coc.zadenikt_java_port.characteristics.multiparts.Cock;
-import com.fenoxo.coc.zadenikt_java_port.characteristics.multiparts.Hair;
-import com.fenoxo.coc.zadenikt_java_port.characteristics.multiparts.Skin;
-import com.fenoxo.coc.zadenikt_java_port.characteristics.multiparts.Tail;
-import com.fenoxo.coc.zadenikt_java_port.characteristics.multiparts.Vagina;
 import com.fenoxo.coc.zadenikt_java_port.equipment.Armour;
 import com.fenoxo.coc.zadenikt_java_port.equipment.Item;
 import com.fenoxo.coc.zadenikt_java_port.equipment.Weapon;

@@ -1,7 +1,7 @@
 package com.fenoxo.coc.zadenikt_java_port.equipment;
 
-import com.fenoxo.coc.zadenikt_java_port.Actor;
-import com.fenoxo.coc.zadenikt_java_port.Perk;
+import com.fenoxo.coc.zadenikt_java_port.actors.Actor;
+import com.fenoxo.coc.zadenikt_java_port.characteristics.Perk;
 
 public class Weapon extends Item {
 	public static final Weapon FISTS =				null;

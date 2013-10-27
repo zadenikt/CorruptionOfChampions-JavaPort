@@ -1,7 +1,6 @@
 package com.fenoxo.coc.zadenikt_java_port.characteristics;
 
-import com.fenoxo.coc.zadenikt_java_port.Actor;
-import com.fenoxo.coc.zadenikt_java_port.characteristics.creation.Gender;
+import com.fenoxo.coc.zadenikt_java_port.actors.Actor;
 
 public enum Race {
 	HUMAN("human"),

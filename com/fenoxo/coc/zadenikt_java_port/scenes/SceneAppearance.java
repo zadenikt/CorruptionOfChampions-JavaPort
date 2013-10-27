@@ -1,12 +1,12 @@
 package com.fenoxo.coc.zadenikt_java_port.scenes;
 
-import com.fenoxo.coc.zadenikt_java_port.Actor;
 import com.fenoxo.coc.zadenikt_java_port.ChampionsApplet;
 import com.fenoxo.coc.zadenikt_java_port.Game;
-import com.fenoxo.coc.zadenikt_java_port.Player;
+import com.fenoxo.coc.zadenikt_java_port.actors.Actor;
+import com.fenoxo.coc.zadenikt_java_port.actors.Player;
 import com.fenoxo.coc.zadenikt_java_port.characteristics.Race;
 
-public class Appearance implements Scene {
+public class SceneAppearance implements Scene {
 	public void displayText(Player me, Actor enemy) {
 		Game.getUI().clear();
 		//Race

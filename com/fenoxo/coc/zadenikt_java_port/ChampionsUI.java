@@ -41,19 +41,19 @@ public class ChampionsUI extends JPanel {
 		
 		this.add(buttonPanel);
 	}
-	
-	public void write(String text) {
-		this.write(text, false);
-	}
-	
-	public void write(String text, boolean clear) {
-		if(clear) this.clear();
-		this.output.setText(this.output.getText() + text);
-	}
-	
+
 	public void clear() {
 		this.output.setText("");
 	}
+	public void write(String text) {
+		this.output.setText(this.output.getText() + text);
+	}
+	@Deprecated // Because I don't want to have to check each individual write().
+	public void write(String text, boolean clear) {
+		if(clear) this.clear();
+		this.write(text);
+	}
+	
 	
 	public void setButton(int index, String label)
 	{

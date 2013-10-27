@@ -1,4 +1,4 @@
-package com.fenoxo.coc.zadenikt_java_port.characteristics.multiparts;
+package com.fenoxo.coc.zadenikt_java_port.characteristics;
 
 /** NOTES:
  * thickness is now diameter.

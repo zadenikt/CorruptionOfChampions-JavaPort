@@ -1,4 +1,7 @@
-package com.fenoxo.coc.zadenikt_java_port;
+package com.fenoxo.coc.zadenikt_java_port.characteristics;
+
+import com.fenoxo.coc.zadenikt_java_port.ChampionsApplet;
+import com.fenoxo.coc.zadenikt_java_port.actors.Actor;
 
 public class Perk {
 	public static final Perk NULL = 					null; // Essentially, debug.
