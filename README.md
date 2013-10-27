@@ -37,7 +37,3 @@ TODOs
 ### Perk.java ###
 
  * Add all the perks. Yeah, I'm too lazy. [Wiki](http://corruptionofchampions.wikispaces.com/Perks).
-
-### ChampionsApplet.java ###
-
- * The part where stuff shows up. Yeah... I'm used to writing backends, so it'd likely be for the best if somebody else could help with the GUI.
