@@ -8,9 +8,8 @@ import javax.swing.JOptionPane;
 
 import com.fenoxo.coc.zadenikt_java_port.util.UIHelper;
 
-public class ChampionsApplication extends JFrame implements WindowListener, ChampionsController
-{
-	private static final long serialVersionUID = -8777019235616199971L;
+@SuppressWarnings("serial")
+public class ChampionsApplication extends JFrame implements WindowListener, ChampionsController {
 	
 	private static ChampionsApplication instance;
 	

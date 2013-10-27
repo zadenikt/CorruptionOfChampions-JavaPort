@@ -6,6 +6,7 @@ public enum WingType {
 	BEE_LARGE,
 	BIRD,
 	DRAGON,
+	DRAGON_LARGE,
 	DEMONIC,
 	DEMONIC_LARGE,
 	SHARK_FIN,

@@ -5,4 +5,5 @@ import com.fenoxo.coc.zadenikt_java_port.Player;
 
 public interface Scene {
 	void displayText(Player me, Actor enemy);
+	Scene action(int button);
 }

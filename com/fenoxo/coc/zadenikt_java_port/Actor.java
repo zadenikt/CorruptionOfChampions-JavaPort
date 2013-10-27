@@ -513,8 +513,16 @@ public abstract class Actor {
 	}
 	public int dragonScore() {
 		int score = 0;
-		throw new RuntimeException("dragon");
-		//return score;
+		if(this.face == FaceType.DRAGON) score++;
+		if(this.ears == EarType.DRAGON) score++;
+		if(this.tail.getType() == Tail.Type.DRAGON) score++;
+		if(this.tongue == TongueType.DRAGON) score++;
+		if(this.getCockTypeCount(Cock.Type.DRAGON) > 0) score++;
+		if(this.wings == WingType.DRAGON) score++;
+		if(this.wings == WingType.DRAGON_LARGE) score += 2;
+		if(this.lowerBody == LowerBodyType.DRAGON) score++;
+		if(this.skin.getType() == Skin.Type.SCALES && score > 0) score++;
+		return score;
 	}
 	public int goblinScore() {
 		int score = 0;
@@ -565,20 +573,6 @@ public abstract class Actor {
 	}
 	//ACTIONSCRIPT { TODO
 	/*
-	//Determine Horse Rating
-	public function dragonScore():Number {
-		var dragonCounter:Number = 0;
-		if(faceType == 12) dragonCounter++;
-		if(earType == 10) dragonCounter++;
-		if(tailType == 14) dragonCounter++;
-		if(tongueType == 3) dragonCounter++;
-		if(dragonCocks() > 0) dragonCounter++;
-		if(wingType == 10) dragonCounter++;
-		if(wingType == 11) dragonCounter += 2;
-		if(lowerBody == 18) dragonCounter++;
-		if(skinType == 2 && dragonCounter > 0) dragonCounter++;
-		return dragonCounter;
-	}
 	//Goblinscore
 	public function goblinScore():Number {
 		var horseCounter:Number = 0;

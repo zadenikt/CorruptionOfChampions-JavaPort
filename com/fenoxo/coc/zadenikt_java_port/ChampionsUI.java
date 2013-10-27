@@ -4,14 +4,13 @@ import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 
-public class ChampionsUI extends JPanel
-{
+@SuppressWarnings("serial")
+public class ChampionsUI extends JPanel {
 	private JPanel sidebar;
 	private JEditorPane output;
 	private JButton[] buttons = new JButton[10];
 	
-	public ChampionsUI()
-	{
+	public ChampionsUI() {
 		super(null);
 		this.setBounds(0, 0, 800, 600);
 		
@@ -29,8 +28,7 @@ public class ChampionsUI extends JPanel
 		JPanel buttonPanel = new JPanel(null);
 		buttonPanel.setBounds(200, 500, 600, 100);
 		
-		for(int i = 0; i < buttons.length; i++)
-		{
+		for(int i = 0; i < buttons.length; i++) {
 			int rowOffset = (i > 4) ? 30 : 0,
 					columnOffset = (i > 4) ? 120 * (i - 5) : 120 * i;
 			
@@ -44,19 +42,17 @@ public class ChampionsUI extends JPanel
 		this.add(buttonPanel);
 	}
 	
-	public void write(String text)
-	{
-		write(text, false);
+	public void write(String text) {
+		this.write(text, false);
 	}
 	
-	public void write(String text, boolean clear)
-	{
-		//TODO: Implement
+	public void write(String text, boolean clear) {
+		if(clear) this.clear();
+		this.output.setText(this.output.getText() + text);
 	}
 	
-	public void clear()
-	{
-		//TODO: Implement
+	public void clear() {
+		this.output.setText("");
 	}
 	
 	public void setButton(int index, String label)
@@ -65,6 +61,7 @@ public class ChampionsUI extends JPanel
 		buttons[index - 1].setVisible(true);
 		
 		//TODO: Link encounter to button. Use a table of some kind for fast lookups.
+		// From Zadenikt: I'm thinking of having whatever Scene is "loaded" just get the button ClickEvents as action(int button) or something.
 	}
 	
 	public void clearButton(int index)

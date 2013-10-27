@@ -710,7 +710,15 @@ public class Appearance implements Scene {
 		//MONEY!
 		 * */
 		if(me.gems == 0) Game.getUI().write("\n\n<b>Your money-purse is devoid of any currency.");
-		if(me.gems > 1) Game.getUI().write("\n\n<b>You have " + me.gems + " shining gems, collected in your travels.");
-		if(me.gems == 1) Game.getUI().write("\n\n<b>You have " + me.gems + " shining gem, collected in your travels.");
+		else if(me.gems == 1) Game.getUI().write("\n\n<b>You have 1 shining gem, collected in your travels.");
+		else Game.getUI().write("\n\n<b>You have " + me.gems + " shining gems, collected in your travels.");
+		Game.getUI().setButton(1, "Next");
+	}
+	
+	public Scene action(int button) {
+		if(button == 1) {
+			System.out.println("Implement me!!!"); //TODO
+		}
+		return null;
 	}
 }
