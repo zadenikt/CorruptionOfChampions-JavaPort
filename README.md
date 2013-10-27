@@ -10,6 +10,9 @@ Authors
  * Port written by [zadenikt](https://github.com/zadenikt)
  * UI Code written by [fagtron](https://github.com/fagtron)
 
+If you want to help, make a fork and send a pull request.
+If you want to debate/discuss design decisions, [Clicky](https://github.com/zadenikt/CorruptionOfChampions/wiki/Design-Decisions-Discussion).
+
 TODOs
 -----
 
