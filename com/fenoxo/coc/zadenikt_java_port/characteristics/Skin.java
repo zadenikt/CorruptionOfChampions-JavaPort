@@ -32,6 +32,10 @@ public class Skin {
 		OLIVE,
 		DARK,
 		EBONY,
-		ALBINO;
+		ALBINO,
+		PALE_YELLOW,
+		GRAYISH_BLUE,
+		GREEN,
+		DARK_GREEN;
 	}
 }
