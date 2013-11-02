@@ -36,11 +36,11 @@ public abstract class Actor {
     // TODO Make all public variables protected.
     protected String name, description;
     protected int strength, toughness, speed, intelligence, libido, sensitivity;
-    public int corruption;
-    public int health, lust, fatigue;
-    public int xp, level;
-    public int xpTease, levelTease;
-    public int gems;
+    protected int corruption;
+    protected int health, lust, fatigue;
+    protected int xp, level;
+    protected int xpTease, levelTease;
+    protected int gems;
     protected Set<Perk> perks = new HashSet<>();
     protected Set<StatusEffect> statusEffects = new HashSet<>();
     protected Weapon weapon;
@@ -49,26 +49,26 @@ public abstract class Actor {
     protected Item itemSlots[] = {null, null, null}; //This can be increased by setItemSlotsMax()
     protected int itemSlotCounts[] = {0, 0, 0};
     
-    public double femininity, height, thickness, tone;
-    public double hips, butt;
+    protected double femininity, height, thickness, tone;
+    protected double hips, butt;
     //Don't put a beard in (abandoned feature), but leave this todo here just in case.
-    public Hair hair;
-    public EyeType eyes;
-    public Skin skin;
-    public FaceType face;
-    public TongueType tongue;
-    public EarType ears;
-    public ArmType arms;
-    public HornType horns;
-    public WingType wings;
-    public LowerBodyType lowerBody;
-    public Tail tail;
-    public boolean antennae;
+    protected Hair hair;
+    protected EyeType eyes;
+    protected Skin skin;
+    protected FaceType face;
+    protected TongueType tongue;
+    protected EarType ears;
+    protected ArmType arms;
+    protected HornType horns;
+    protected WingType wings;
+    protected LowerBodyType lowerBody;
+    protected Tail tail;
+    protected boolean antennae;
     //TODO Put in gills if they actually exist.
     //TODO Piercings
-    public List<Cock> cocks = new ArrayList<>();
-    public List<BreastRow> breasts = new ArrayList<>();
-    public Vagina vagina;
+    protected List<Cock> cocks = new ArrayList<>();
+    protected List<BreastRow> breasts = new ArrayList<>();
+    protected Vagina vagina;
     
     public String getName() {
         return this.name;
@@ -187,7 +187,159 @@ public abstract class Actor {
         return this.getXPToLevelUpTease() - this.getXPTease();
     }
 
-    public Gender getGender() {
+    public int getGems() {
+		return gems;
+	}
+
+	public void setGems(int gems) {
+		this.gems = gems;
+	}
+
+	public double getFemininity() {
+		return femininity;
+	}
+
+	public void setFemininity(double femininity) {
+		this.femininity = femininity;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+
+	public double getThickness() {
+		return thickness;
+	}
+
+	public void setThickness(double thickness) {
+		this.thickness = thickness;
+	}
+
+	public double getTone() {
+		return tone;
+	}
+
+	public void setTone(double tone) {
+		this.tone = tone;
+	}
+
+	public double getHips() {
+		return hips;
+	}
+
+	public void setHips(double hips) {
+		this.hips = hips;
+	}
+
+	public double getButt() {
+		return butt;
+	}
+
+	public void setButt(double butt) {
+		this.butt = butt;
+	}
+
+	public Hair getHair() {
+		return hair;
+	}
+
+	public void setHair(Hair hair) {
+		this.hair = hair;
+	}
+
+	public EyeType getEyes() {
+		return eyes;
+	}
+
+	public void setEyes(EyeType eyes) {
+		this.eyes = eyes;
+	}
+
+	public Skin getSkin() {
+		return skin;
+	}
+
+	public void setSkin(Skin skin) {
+		this.skin = skin;
+	}
+
+	public FaceType getFace() {
+		return face;
+	}
+
+	public void setFace(FaceType face) {
+		this.face = face;
+	}
+
+	public TongueType getTongue() {
+		return tongue;
+	}
+
+	public void setTongue(TongueType tongue) {
+		this.tongue = tongue;
+	}
+
+	public EarType getEars() {
+		return ears;
+	}
+
+	public void setEars(EarType ears) {
+		this.ears = ears;
+	}
+
+	public ArmType getArms() {
+		return arms;
+	}
+
+	public void setArms(ArmType arms) {
+		this.arms = arms;
+	}
+
+	public HornType getHorns() {
+		return horns;
+	}
+
+	public void setHorns(HornType horns) {
+		this.horns = horns;
+	}
+
+	public WingType getWings() {
+		return wings;
+	}
+
+	public void setWings(WingType wings) {
+		this.wings = wings;
+	}
+
+	public LowerBodyType getLowerBody() {
+		return lowerBody;
+	}
+
+	public void setLowerBody(LowerBodyType lowerBody) {
+		this.lowerBody = lowerBody;
+	}
+
+	public Tail getTail() {
+		return tail;
+	}
+
+	public void setTail(Tail tail) {
+		this.tail = tail;
+	}
+
+	public boolean hasAntennae() {
+		return antennae;
+	}
+
+	public void setAntennae(boolean antennae) {
+		this.antennae = antennae;
+	}
+
+	public Gender getGender() {
         return Gender.get(this);
     }
 

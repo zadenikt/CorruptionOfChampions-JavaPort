@@ -1,6 +1,5 @@
 package com.fenoxo.coc.zadenikt_java_port.scenes;
 
-import com.fenoxo.coc.zadenikt_java_port.ChampionsApplet;
 import com.fenoxo.coc.zadenikt_java_port.Game;
 import com.fenoxo.coc.zadenikt_java_port.actors.Actor;
 import com.fenoxo.coc.zadenikt_java_port.actors.Player;
@@ -12,23 +11,23 @@ public class SceneAppearance implements Scene {
 		//Race
 		if(Race.getRace(me) != Race.HUMAN) Game.getUI().write("You began your journey as a human, but gave that up as you explored the dangers of this realm. ");
 		//Height
-		Game.getUI().write("You are a " + (me.height/12) + " foot " + (me.height%12) + " inch tall " + Race.get(me) + ", with " + me.describeBodyType() + ". ");
+		Game.getUI().write("You are a " + (me.getHeight()/12) + " foot " + (me.getHeight()%12) + " inch tall " + Race.get(me) + ", with " + me.describeBodyType() + ". ");
 		//Equipment
 		Game.getUI().write("<b>You are currently wearing your " + me.getArmour().name + " and using your " + me.getWeapon().name + " as a weapon.</b> ");
 		//Faces
-		switch(me.face) {
+		switch(me.getFace()) {
 		case FOX:
 			Game.getUI().write("You have a tapered, shrewd-looking vulpine face with a speckling of downward-curved whiskers just behind the nose. ");
-			switch(me.skin.getType()) {
+			switch(me.getSkin().getType()) {
 			case NORMAL:
 			default:
-				Game.getUI().write("Oddly enough, there's no fur on your animalistic muzzle, just " + me.skin.describe() + ". ");
+				Game.getUI().write("Oddly enough, there's no fur on your animalistic muzzle, just " + me.getSkin().describe() + ". ");
 				break;
 			case FUR:
-				Game.getUI().write("A coat of " + me.skin.describe() + " decorates your muzzle. ");
+				Game.getUI().write("A coat of " + me.getSkin().describe() + " decorates your muzzle. ");
 				break;
 			case SCALES:
-				Game.getUI().write("Strangely, " + me.skin.describe() + " adorn every inch of your animalistic visage. ");
+				Game.getUI().write("Strangely, " + me.getSkin().describe() + " adorn every inch of your animalistic visage. ");
 				break;
 			}
 			break;
@@ -709,9 +708,9 @@ public class SceneAppearance implements Scene {
 		}
 		//MONEY!
 		 * */
-		if(me.gems == 0) Game.getUI().write("\n\n<b>Your money-purse is devoid of any currency.");
-		else if(me.gems == 1) Game.getUI().write("\n\n<b>You have 1 shining gem, collected in your travels.");
-		else Game.getUI().write("\n\n<b>You have " + me.gems + " shining gems, collected in your travels.");
+		if(me.getGems() == 0) Game.getUI().write("\n\n<b>Your money-purse is devoid of any currency.");
+		else if(me.getGems() == 1) Game.getUI().write("\n\n<b>You have 1 shining gem, collected in your travels.");
+		else Game.getUI().write("\n\n<b>You have " + me.getGems() + " shining gems, collected in your travels.");
 		Game.getUI().setButton(1, "Next");
 	}
 	

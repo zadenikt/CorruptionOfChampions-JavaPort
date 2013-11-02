@@ -62,8 +62,8 @@ public enum Race {
 	}
 	
 	public static Race getRace(Actor a) {
-		if(a.lowerBody == LowerBodyType.CENTAUR) return CENTAUR;
-		else if(a.lowerBody == LowerBodyType.MY_LITTLE_PONY) return MY_LITTLE_PONY;
+		if(a.getLowerBody() == LowerBodyType.CENTAUR) return CENTAUR;
+		else if(a.getLowerBody() == LowerBodyType.MY_LITTLE_PONY) return MY_LITTLE_PONY;
 		else if(a.catScore() >= 4) return CAT;
 		else if(a.lizardScore() >= 4) return LIZARD;
 		else if(a.dragonScore() >= 4) return DRAGON;
@@ -80,11 +80,11 @@ public enum Race {
 		else if(a.rabbitScore() >= 4) return RABBIT;
 		else if(a.harpyScore() >= 4) return HARPY;
 		else if(a.spiderScore() >= 4) {
-			if(a.lowerBody == LowerBodyType.DRIDER) return DRIDER;
+			if(a.getLowerBody() == LowerBodyType.DRIDER) return DRIDER;
 			else return SPIDER;
 		}
 		else if(a.kangarooScore() >= 4) return KANGAROO;
-		else if(a.lowerBody == LowerBodyType.NAGA) return NAGA; // a.nagaScore()?
+		else if(a.getLowerBody() == LowerBodyType.NAGA) return NAGA; // a.nagaScore()?
 		else if(a.gooScore() >= 3) return GOO;
 		else if(a.mutantScore() >= 5) {
 			if(a.humanScore() >= 5) return SEMI_MUTANT;
