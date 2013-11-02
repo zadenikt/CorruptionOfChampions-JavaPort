@@ -5,7 +5,6 @@ import com.fenoxo.coc.zadenikt_java_port.actors.Actor;
 import com.fenoxo.coc.zadenikt_java_port.actors.ActorRathazul;
 import com.fenoxo.coc.zadenikt_java_port.actors.Player;
 import com.fenoxo.coc.zadenikt_java_port.characteristics.Perk;
-import com.fenoxo.coc.zadenikt_java_port.characteristics.StatusEffect;
 
 public class SceneCamp implements Scene {
 	public void displayText(Player me, Actor enemy) {
@@ -31,10 +30,10 @@ public class SceneCamp implements Scene {
 		else Game.getUI().setButton(10, "Wait");
 		if(me.hasFollower("Isabella")) {
 			Game.getUI().write("Your campsite got a lot more comfortable once Isabella moved in.  Carpets cover up much of the barren ground, simple awnings tied to the rocks provide shade, and hand-made wooden furniture provides comfortable places to sit and sleep.");
-			if(me.getDays() >= 20) Game.getUI().write("You've even managed to carve some artwork into the rocks around the camp's perimeter.");
-		} else if(me.getDays() < 10) {
+			if(Game.getDay() >= 20) Game.getUI().write("You've even managed to carve some artwork into the rocks around the camp's perimeter.");
+		} else if(Game.getDay() < 10) {
 			Game.getUI().write("Your campsite is fairly simple at the moment.  Your tent and bedroll are set in front of the rocks that lead to the portal.  You have a small fire pit as well.");
-		} else if(me.getDays() < 20) {
+		} else if(Game.getDay() < 20) {
 			Game.getUI().write("Your campsite is starting to get a very 'lived-in' look.  The fire-pit is well defined with some rocks you've arranged around it, and your bedroll and tent have been set up in the area most sheltered by rocks.");
 		} else {
 			Game.getUI().write("Your new home is as comfy as a camp site can be.  The fire-pit and tent are both set up perfectly, and in good repair, and you've even managed to carve some artwork into the rocks around the camp's perimeter.");

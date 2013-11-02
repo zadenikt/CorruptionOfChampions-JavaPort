@@ -30,7 +30,6 @@ public class Player extends Actor {
 		this.xpTease = 0;
 		this.levelTease = 1;
 		this.notes = "No Notes Available.";
-		this.days = 0;
 		this.followers = new HashMap<String, Actor>();
 		this.lovers = new HashMap<String, Actor>();
 		this.slaves = new HashMap<String, Actor>();
@@ -40,9 +39,6 @@ public class Player extends Actor {
 	
 	public Player setNotes(String notes) { this.notes = notes; return this; }
 	public String getNotes() { return this.notes; }
-	
-	public Player increaseDays() { this.days++; return this; }
-	public int getDays() { return this.days; }
 	
 	public Player addFollower(String name, Actor follower) { this.followers.put(name.toLowerCase(), follower); return this; }
 	public Player removeFollower(String follower) { this.followers.remove(follower.toLowerCase()); return this; }
