@@ -26,7 +26,7 @@ public class SceneCamp implements Scene {
 			else Game.getUI().setButton(9, "Masturbate");
 		}
 		if(Game.getTime() < 6 || Game.getTime() > 20) Game.getUI().setButton(10, "Sleep");
-		if(me.getFatigue() > 40 || me.getHealthPercent() <= 0.90) Game.getUI().setButton(10, "Rest");
+		else if(me.getFatigue() > 40 || me.getHealthPercent() <= 0.90) Game.getUI().setButton(10, "Rest");
 		else Game.getUI().setButton(10, "Wait");
 		if(false) { // TODO Isabella
 			Game.getUI().write("Your campsite got a lot more comfortable once Isabella moved in.  Carpets cover up much of the barren ground, simple awnings tied to the rocks provide shade, and hand-made wooden furniture provides comfortable places to sit and sleep.");
