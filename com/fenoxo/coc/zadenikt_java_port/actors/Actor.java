@@ -1,6 +1,7 @@
 package com.fenoxo.coc.zadenikt_java_port.actors;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,10 +46,10 @@ public abstract class Actor {
   protected Set<StatusEffect> statusEffects = new HashSet<>();
   protected Weapon weapon;
   protected Armour armour;
-  
+
   protected Item itemSlots[] = {null, null, null}; //This can be increased by setItemSlotsMax()
-  protected int itemSlotCounts[] = {0, 0, 0};
-  
+  //protected int itemSlotCounts[] = {0, 0, 0};
+
   public double femininity, height, thickness, tone;
   public double hips, butt;
   //Don't put a beard in (abandoned feature), but leave this todo here just in case.
@@ -63,13 +64,13 @@ public abstract class Actor {
   public WingType wings;
   public LowerBodyType lowerBody;
   public Tail tail;
-  public boolean antennae;
+  public boolean hasAntennae;
   //TODO Put in gills if they actually exist.
   //TODO Piercings
   public List<Cock> cocks = new ArrayList<>();
   public List<BreastRow> breasts = new ArrayList<>();
   public Vagina vagina;
-  
+
   public String getName() {
     return this.name;
   }
@@ -171,16 +172,10 @@ public abstract class Actor {
   }
 
   public int getXPToLevelUpTease() {
-    if (this.getLevelTease() >= 5) {
-      return -1;
-    }
-    return (int) (Math.floor(10 + (5 * Math.pow(this.getLevelTease() + 1, 2)))); // TODO
-                                                                                 // Is
-                                                                                 // this
-                                                                                 // the
-                                                                                 // right
-                                                                                 // formula?
-                                                                                // *Shudder*...
+    return this.getLevelTease() < 5
+        ? (int) (Math.floor(10 + (5 * Math.pow(this.getLevelTease() + 1, 2))))
+        : -1;
+    // TODO Is this the right formula? *Shudder*...
   }
 
   public int getXPToLevelUpTeaseRemaining() {
@@ -213,14 +208,16 @@ public abstract class Actor {
   public Vagina ifNoVaginaMakeOne() {
     return this.ifNoVaginaMakeOne(new Vagina());
   }
+
   public Vagina ifNoVaginaMakeOne(Vagina vagina) {
     if (!this.hasVagina()) {
       this.setVagina(vagina);
     }
     return this.getVagina();
   }
+
   public double getVaginaCapacity() {
-    if (this.getVagina() == null) {
+    if (!this.hasVagina()) {
       return 0;
     }
     double capacity = 0.0;
@@ -246,35 +243,52 @@ public abstract class Actor {
     return capacity;
   }
 
-  public int getBreastRowsCount() { return this.breasts.size(); }
+  public int getBreastRowsCount() {
+    return this.breasts.size();
+  }
+
   public BreastRow largestBreasts() {
+    if (this.breasts.isEmpty()) {
+      return null;
+    }
     BreastRow largest = this.breasts.get(0);
-    for(BreastRow boobies : this.breasts)
-      if (boobies.getSize() > largest.getSize())
+    for (BreastRow boobies : this.breasts) {
+      if (boobies.getSize() > largest.getSize()) {
         largest = boobies;
+      }
+    }
     return largest;
   }
   public BreastRow lactatestBreasts() {
+    if (this.breasts.isEmpty()) {
+      return null;
+    }
     BreastRow lactatestIsTooAWord = this.breasts.get(0);
-    for(BreastRow boobies : this.breasts)
-      if (boobies.getLactation() > lactatestIsTooAWord.getSize())
+    for (BreastRow boobies : this.breasts) {
+      if (boobies.getLactation() > lactatestIsTooAWord.getLactation()) {
         lactatestIsTooAWord = boobies;
+      }
+    }
     return lactatestIsTooAWord;
   }
+  
   public int getBreastCount() {
     int boobs = 0;
-    for(BreastRow row : this.breasts)
+    for (BreastRow row : this.breasts) {
       boobs += row.getBreastsInRow();
+    }
     return boobs;
   }
+  
   public int getNippleCount() {
     int nipples = 0;
-    for(BreastRow row : this.breasts)
+    for (BreastRow row : this.breasts) {
       nipples += (row.getBreastsInRow() * row.getNipplesPerBreast());
+    }
     return nipples;
   }
   public boolean hasFuckableNipples() {
-    for(BreastRow row : this.breasts) {
+    for (BreastRow row : this.breasts) {
       if (row.isFuckable()) {
         return true;
       }
@@ -284,34 +298,37 @@ public abstract class Actor {
 
   public int getCockTypeCount(Cock.Type type) {
     int count = 0;
-    for(Cock c : this.cocks) {
+    for (Cock c : this.cocks) {
       if (c.getType() == type) {
         count++;
       }
     }
     return count;
   }
-  
+
   public boolean hasTail() {
     return this.tail != null
         && this.tail.getType() != Tail.Type.NONE;
   }
-  
+
   public void addPerk(Perk p) {
     if (!this.hasPerk(p)) {
       this.perks.add(p);
       p.add(this);
     }
   }
+  
   public void removePerk(Perk p) {
     if (this.hasPerk(p)) {
       this.perks.remove(p);
       p.remove(this);
     }
   }
+  
   public boolean hasPerk(Perk p) {
     return this.perks.contains(p);
   }
+  
   public boolean addItem(Item i) { //TODO Add inventory toss-out.
     int slot = this.firstEmptyItemSlot();
     if (slot == -1) {
@@ -319,75 +336,62 @@ public abstract class Actor {
           "%s would've got the item %s, but their inventory is full!", this.toString(), i.name));
       return false;
     }
-    
+
     System.out.println(String.format("%s got the item %s!", this.toString(), i.name));
     this.itemSlots[slot] = i;
-    this.itemSlotCounts[slot] = 1;
     return true;
   }
   public void removeItem(int slot) {
     if (this.itemSlots[slot - 1] == null) {
-      this.itemSlotCounts[slot - 1] = 0;
       return;
     }
-    this.itemSlotCounts[slot - 1]--;
-    if (this.itemSlotCounts[slot - 1] == 0) {
+    this.itemSlots[slot - 1].count--;
+    if (this.itemSlots[slot - 1].count == 0) {
       this.itemSlots[slot - 1] = null;
     }
   }
-  
+
   public void removeItem(Item i) {
     this.removeItem(this.firstItemSlot(i));
   }
-  
+
   public boolean hasItem(Item i) {
     return this.firstItemSlot(i) != -1;
   }
-  
+
   public void useItem(int i) {
     this.useItem(this.itemSlots[i]);
   }
-  
+
   public void useItem(Item i) {
     i.action(this); //TODO See if this actually works.
   }
-  
+
   public int firstItemSlot(Item i) {
-    for(int j = 0; j < this.itemSlots.length; j++) {
-      if (this.itemSlots[j] == i && this.itemSlotCounts[j] > 0) {
+    for (int j = 0; j < this.itemSlots.length; j++) {
+      if (this.itemSlots[j] == i && this.itemSlots[j].count > 0) {
         return j;
       }
     }
     return -1;
   }
-  
+
   public int firstEmptyItemSlot() {
-    for(int j = 0; j < this.itemSlots.length; j++) {
-      if (this.itemSlots[j] == null || this.itemSlotCounts[j] == 0) {
+    for (int j = 0; j < this.itemSlots.length; j++) {
+      if (this.itemSlots[j] == null || this.itemSlots[j].count == 0) {
         return j;
       }
     }
     return -1;
   }
-  
+
   public void setItemSlotsMax(int n) {
     if (this.itemSlots.length == n) {
       return;
     }
-    Item oldSlots[] = new Item[this.itemSlots.length];
-    int oldCounts[] = new int[this.itemSlots.length];
-    for(int i = 0; i < this.itemSlots.length; i++) {
-      oldSlots[i] = this.itemSlots[i];
-      oldCounts[i] = this.itemSlotCounts[i];
-    }
-    this.itemSlots = new Item[n];
-    this.itemSlotCounts = new int[n];
-    for(int i = 0; i < n; i++) {
-      this.itemSlots[i] = oldSlots[i];
-      this.itemSlotCounts[i] = oldCounts[i];
-    }
+    this.itemSlots = Arrays.copyOf(this.itemSlots, n);
   }
-  
+
   public Weapon getWeapon() {
     return this.weapon;
   }
@@ -397,14 +401,14 @@ public abstract class Actor {
     this.removeItem(slot);
     this.equipWeapon(w);
   }
-  
+
   public void equipWeapon(Weapon w) {
     this.unequipWeapon();
     this.weapon = w;
     System.out.println(
         String.format("%s equipped the weapon %s!", this.toString(), this.weapon.name));
   }
-  
+
   public void unequipWeapon() {
     if (this.weapon == null) {
       return;
@@ -424,13 +428,13 @@ public abstract class Actor {
     this.removeItem(slot);
     this.equipArmour(a);
   }
-  
+
   public void equipArmour(Armour newArmor) {
     this.unequipArmour();
     this.armour = newArmor;
     System.out.println(String.format("%s equipped the armor %s!", this.toString(), newArmor.name));
   }
-  
+
   public void unequipArmour() {
     if (this.armour == null) {
       return;
@@ -440,76 +444,65 @@ public abstract class Actor {
     this.addItem(this.armour);
     this.armour = null;
   }
-  
+
   //Descriptions
   public String describeBodyType() {
-    String out = "";
-    if (this.thickness < 10) {
-      out += (this.tone > 90) ? "a lithe body covered in highly visible muscles"
-           : (this.tone > 75) ? "an incredibly thin, well-muscled frame"
-           : (this.tone > 50) ? "a very thin body that has a good bit of muscle definition"
-           : (this.tone > 25) ? "a lithe body and only a little bit of muscle definition"
-           : "a waif-thin body, and soft, forgiving flesh";
-    }
-    else if (this.thickness < 25) {
-      out += (this.tone > 90) ? "a thin body and incredible muscle definition"
-           : (this.tone > 75) ? "a narrow frame that shows off your muscles"
-           : (this.tone > 50) ? "a somewhat lithe body and a fair amount of definition"
-           : (this.tone > 25) ? "a narrow, soft body that still manages to show off a few muscles"
-           : "a thin, soft body";
-    }
-    //Somewhat thin
-    else if (thickness < 40) {
-      out += (this.tone > 90) ? "a fit, somewhat thin body and rippling muscles all over"
-           : (this.tone > 75) ? "a thinner-than-average frame and great muscle definition"
-           : (this.tone > 50) ? "a somewhat narrow body and a decent amount of visible muscle"
-           : (this.tone > 25) ? "a moderately thin body, soft curves,"
-               + " and only a little bit of muscle"
-           : "a fairly thin form and soft, cuddle-able flesh";
-    }
-    //average
-    else if (thickness < 60) {
-      out += (this.tone > 90) ? "average thickness and a bevy of perfectly defined muscles"
-           : (this.tone > 75) ? "an average-sized frame and great musculature"
-           : (this.tone > 50) ? "a normal waistline and decently visible muscles"
-           : (this.tone > 25) ? "an average body and soft, unremarkable flesh"
-           : "an average frame and soft, unthis.toned flesh with a tendency for jiggle";
-    }
-    else if (thickness < 75) {
-      out += (this.tone > 90) ? "a somewhat thick body that's covered in slabs of muscle"
-           : (this.tone > 75) ? "a body that's a little bit wide"
-               + " and has some highly-visible muscles"
-           : (this.tone > 50) ? "a solid build that displays a decent amount of muscle"
-           : (this.tone > 25) ? "a slightly wide frame that displays your curves "
-               + "and has hints of muscle underneath"
-           : "a soft, plush body with plenty of jiggle";
-    }
-    else if (thickness < 90) {
-      boolean curvy = (Gender.get(this) == Gender.HERM || this.largestBreasts().getSize() > 3 
-          || this.hips > 7 || this.butt > 7);
-      out += (this.tone > 90) ? "a thickset frame that gives you the appearance of"
-               + " a wall of muscle"
-           : (this.tone > 75) ? "a burly form and plenty of muscle definition"
-           : (this.tone > 50) ? "a solid, thick frame and a decent amount of muscles"
-           : (this.tone > 25) ? "a wide-set body, some soft, forgiving flesh,"
-               + " and a hint of muscle underneath it"
-           : "a wide, cushiony body";
-      out += (curvy) ? " and plenty of jiggle on your curves" : "";
-    } else {//Chunky monkey
-      boolean curvy = (Gender.get(this) == Gender.HERM || this.largestBreasts().getSize() > 4 
-          || this.hips > 10 || this.butt > 10);
-      out += (this.tone > 90) ? "an extremely thickset frame and "
-               + "so much muscle others would find you harder to move than a huge boulder"
-           : (this.tone > 75) ? "a very wide body and enough muscle to make you look like a tank"
-           : (this.tone > 50) ? "an extremely substantial frame packing a decent amount of muscle"
-           : (this.tone > 25) ? String.format("a very wide body%s "
-               + "and hints of muscle underneath", (curvy) ? ", lots of curvy jiggles," : "")
-           : String.format("a thick%s body and plush, %s",
-               (curvy) ? ", voluptuous" : "", (curvy) ? " jiggly curves" : " soft flesh");
-    }
-    return out;
+    boolean curvy = (Gender.get(this) == Gender.HERM 
+        || this.largestBreasts().getSize() > 3
+        || this.hips > 7 || this.butt > 7);
+    boolean curvier = (Gender.get(this) == Gender.HERM 
+        || this.largestBreasts().getSize() > 4
+        || this.hips > 10 || this.butt > 10);
+    return (isSkeletal()) ?
+        ((isHeavyweight()) ? "a lithe body covered in highly visible muscles"
+       : (isMiddleweight()) ? "an incredibly thin, well-muscled frame"
+       : (isWelterweight()) ? "a very thin body that has a good bit of muscle definition"
+       : (isLightweight()) ? "a lithe body and only a little bit of muscle definition"
+       : "a waif-thin body, and soft, forgiving flesh")
+    : (isWaifish()) ?
+        ((isHeavyweight()) ? "a thin body and incredible muscle definition"
+       : (isMiddleweight()) ? "a narrow frame that shows off your muscles"
+       : (isWelterweight()) ? "a somewhat lithe body and a fair amount of definition"
+       : (isLightweight()) ? "a narrow, soft body that still manages to show off a few muscles"
+       : "a thin, soft body")
+    : (isThin()) ? //Somewhat thin
+        ((isHeavyweight()) ? "a fit, somewhat thin body and rippling muscles all over"
+       : (isMiddleweight()) ? "a thinner-than-average frame and great muscle definition"
+       : (isWelterweight()) ? "a somewhat narrow body and a decent amount of visible muscle"
+       : (isLightweight()) ? "a moderately thin body, soft curves, and only a little bit of muscle"
+       : "a fairly thin form and soft, cuddle-able flesh")
+    : (isAverage()) ? //average
+        ((isHeavyweight()) ? "average thickness and a bevy of perfectly defined muscles"
+       : (isMiddleweight()) ? "an average-sized frame and great musculature"
+       : (isWelterweight()) ? "a normal waistline and decently visible muscles"
+       : (isLightweight()) ? "an average body and soft, unremarkable flesh"
+       : "an average frame and soft, unthis.toned flesh with a tendency for jiggle")
+    : (isLarger()) ?
+        ((isHeavyweight()) ? "a somewhat thick body that's covered in slabs of muscle"
+       : (isMiddleweight()) ? "a body that's a little bit wide and has some highly-visible muscles"
+       : (isWelterweight()) ? "a solid build that displays a decent amount of muscle"
+       : (isLightweight()) ? "a slightly wide frame that displays your curves "
+           + "and has hints of muscle underneath"
+       : "a soft, plush body with plenty of jiggle")
+    : (isHefty()) ?
+        (((isHeavyweight()) ? "a thickset frame that gives you the appearance of a wall of muscle"
+       : (isMiddleweight()) ? "a burly form and plenty of muscle definition"
+       : (isWelterweight()) ? "a solid, thick frame and a decent amount of muscles"
+       : (isLightweight()) ? "a wide-set body, some soft, forgiving flesh,"
+           + " and a hint of muscle underneath it"
+       : "a wide, cushiony body")
+           + ((curvy) ? " and plenty of jiggle on your curves" : ""))
+    : //Chunky monkey
+        ((isHeavyweight()) ? "an extremely thickset frame and so much muscle others would find you"
+            + " harder to move than a huge boulder"
+       : (isMiddleweight()) ? "a very wide body and enough muscle to make you look like a tank"
+       : (isWelterweight()) ? "an extremely substantial frame packing a decent amount of muscle"
+       : (isLightweight()) ? String.format("a very wide body%s and hints of muscle underneath",
+           (curvier) ? ", lots of curvy jiggles," : "")
+       : String.format("a thick%s body and plush, %s",
+           (curvier) ? ", voluptuous" : "", (curvier) ? " jiggly curves" : " soft flesh"));
   }
-  
+
   // Scores
   public int humanScore() {
     int score = getScore(
@@ -588,8 +581,8 @@ public abstract class Actor {
     int score = getScore(
         (this.hair.getColour() == Hair.Colour.SHINY_BLACK),
         (this.hair.getColour() == Hair.Colour.BLACK_AND_YELLOW),
-        (this.antennae),
-        (this.antennae && this.face == FaceType.NORMAL),
+        (this.hasAntennae),
+        (this.hasAntennae && this.face == FaceType.NORMAL),
         (this.lowerBody == LowerBodyType.BEE),
         (this.lowerBody == LowerBodyType.BEE && this.hasVagina()),
         (this.tail.getType() == Tail.Type.BEE),
@@ -775,7 +768,7 @@ public abstract class Actor {
         (this.tongue == TongueType.SNAKE)); // 1
     if (score > 0) {
       score += getScore(
-          (!this.antennae),
+          (!this.hasAntennae),
           (this.wings == WingType.NONE));
     }
     return score;
@@ -797,7 +790,7 @@ public abstract class Actor {
     if (score > 0) {
       score += getScore(
           (this.skin.getType() == Skin.Type.FUR),
-          (!this.antennae),
+          (!this.hasAntennae),
           (this.wings == WingType.NONE));
     }
     return score;
@@ -866,11 +859,95 @@ public abstract class Actor {
 
   //DEBUG FOLLOWETH
   public void printInventory() {
-    for(int i = 0; i < this.itemSlots.length; i++) {
+    for (int i = 0; i < this.itemSlots.length; i++) {
       System.out.println(
           String.format("%d - %dx%s",
-              (i + 1), this.itemSlotCounts[i],
+              (i + 1), this.itemSlots[i].count,
               (this.itemSlots[i] == null ? "Empty" : this.itemSlots[i].name)));
+    }
+  }
+  
+  Thickness getThickness() {
+    return Thickness.getType(this.thickness);
+  }
+  
+  boolean isSkeletal() {
+    return this.getThickness() == Thickness.SKELETAL;
+  }
+  boolean isWaifish() {
+    return this.getThickness() == Thickness.WAIFISH;
+  }
+  boolean isThin() {
+    return this.getThickness() == Thickness.THIN;
+  }
+  boolean isAverage() {
+    return this.getThickness() == Thickness.AVERAGE;
+  }
+  boolean isLarger() {
+    return this.getThickness() == Thickness.LARGER;
+  }
+  boolean isHefty() {
+    return this.getThickness() == Thickness.HEFTY;
+  }
+  boolean isChunky() {
+    return this.getThickness() == Thickness.CHUNKY;
+  }
+  
+  
+  private enum Thickness {
+    SKELETAL, // <10
+    WAIFISH, // <25
+    THIN, // <40
+    AVERAGE, // <60
+    LARGER, // <75
+    HEFTY, // <90
+    CHUNKY; // <100
+
+    public static Thickness getType(double thickness) {
+      return (thickness < 10) ? SKELETAL
+           : (thickness < 25) ? WAIFISH
+           : (thickness < 40) ? THIN
+           : (thickness < 60) ? AVERAGE
+           : (thickness < 75) ? LARGER
+           : (thickness < 90) ? HEFTY
+           : CHUNKY;
+    }  
+  }
+  
+  Tone getTone() {
+    return Tone.getType(this.tone);
+  }
+  
+  boolean isHeavyweight() {
+    return this.getTone() == Tone.HEAVYWEIGHT;
+  }
+  boolean isMiddleweight() {
+    return this.getTone() == Tone.MIDDLEWEIGHT;
+  }
+  boolean isWelterweight() {
+    return this.getTone() == Tone.WELTERWEIGHT;
+  }
+  boolean isLightweight() {
+    return this.getTone() == Tone.LIGHTWEIGHT;
+  }
+  boolean isFeatherweight() {
+    return this.getTone() == Tone.FEATHERWEIGHT;
+  }
+  
+  
+  private enum Tone {
+    HEAVYWEIGHT, // >90
+    MIDDLEWEIGHT, // >75
+    WELTERWEIGHT, // >50
+    LIGHTWEIGHT, // >25
+    FEATHERWEIGHT; // >0
+    
+    static Tone getType(double tone) {
+      return (tone > 90) ? HEAVYWEIGHT
+           : (tone > 75) ? MIDDLEWEIGHT
+           : (tone > 50) ? WELTERWEIGHT
+           : (tone > 25) ? LIGHTWEIGHT
+           : FEATHERWEIGHT;
     }
   }
 }
