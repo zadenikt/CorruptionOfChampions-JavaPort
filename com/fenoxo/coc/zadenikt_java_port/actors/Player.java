@@ -46,21 +46,21 @@ public class Player extends Actor {
 	public int getDays() { return this.days; }
 	
 	public Player addFollower(String name, Actor follower) { this.followers.put(name.toLowerCase(), follower); return this; }
-	public Player removeFollower(String follower) { this.followers.remove(follower); return this; }
-	public Actor getFollower(String follower) { return this.followers.get(follower); }
-	public Boolean hasFollower(String follower) { return this.followers.containsKey(follower); }
+	public Player removeFollower(String follower) { this.followers.remove(follower.toLowerCase()); return this; }
+	public Actor getFollower(String follower) { return this.followers.get(follower.toLowerCase()); }
+	public Boolean hasFollower(String follower) { return this.followers.containsKey(follower.toLowerCase()); }
 	public Boolean hasAnyFollowers() { return !this.followers.isEmpty(); }
 	
 	public Player addLover(String name, Actor lover) { this.lovers.put(name.toLowerCase(), lover); return this; }
-	public Player removeLover(String lover) { this.lovers.remove(lover); return this; }
-	public Actor getLover(String lover) { return this.lovers.get(lover); }
-	public Boolean hasLover(String lover) { return this.lovers.containsKey(lover); }
+	public Player removeLover(String lover) { this.lovers.remove(lover.toLowerCase()); return this; }
+	public Actor getLover(String lover) { return this.lovers.get(lover.toLowerCase()); }
+	public Boolean hasLover(String lover) { return this.lovers.containsKey(lover.toLowerCase()); }
 	public Boolean hasAnyLovers() { return !this.lovers.isEmpty(); }
 	
 	public Player addSlave(String name, Actor slave) { this.slaves.put(name.toLowerCase(), slave); return this; }
-	public Player removeSlave(String slave) { this.slaves.remove(slave); return this; }
-	public Actor getSlave(String slave) { return this.slaves.get(slave); }
-	public Boolean hasSlave(String slave) { return this.slaves.containsKey(slave); }
+	public Player removeSlave(String slave) { this.slaves.remove(slave.toLowerCase()); return this; }
+	public Actor getSlave(String slave) { return this.slaves.get(slave.toLowerCase()); }
+	public Boolean hasSlave(String slave) { return this.slaves.containsKey(slave.toLowerCase()); }
 	public Boolean hasAnySlaves() { return !this.slaves.isEmpty(); }
 	
 	public Player addExplorable(Location explorable) { this.explorable.add(explorable); return this; }
