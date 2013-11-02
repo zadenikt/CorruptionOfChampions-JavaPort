@@ -18,7 +18,8 @@ TODOs
 
  * Piercings.
  * Add an `InventoryFullScene.java` file for when you try to pick up an item, while also having a full inventory.
- * Followers.
+ * Implement followers, lovers, slaves.
+ * Implement location discovery.
 
 ### Perk.java ###
 
