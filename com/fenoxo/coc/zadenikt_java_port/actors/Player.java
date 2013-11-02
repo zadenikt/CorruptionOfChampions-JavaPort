@@ -8,7 +8,6 @@ import com.fenoxo.coc.zadenikt_java_port.scenes.Location;
 
 public class Player extends Actor {
 	protected String notes;
-	protected int days;
 	protected Map<String, Actor> followers, lovers, slaves;
 	protected ArrayList<Location> explorable, places;
 	

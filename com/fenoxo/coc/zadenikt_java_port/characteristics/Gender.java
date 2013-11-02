@@ -6,6 +6,6 @@ public enum Gender {
 	NONE, MALE, FEMALE, HERM;
 	
 	public static Gender get(Actor a) {
-		return null;
+		return a.getGender();
 	}
 }
