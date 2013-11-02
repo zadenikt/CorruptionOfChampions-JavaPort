@@ -51,7 +51,7 @@ public abstract class Actor {
     
     protected double femininity, height, thickness, tone;
     protected double hips, butt;
-    //Don't put a beard in (abandoned feature), but leave this todo here just in case.
+    //Don't put a beard in (abandoned feature), but leave this here just in case.
     protected Hair hair;
     protected EyeType eyes;
     protected Skin skin;
@@ -66,8 +66,10 @@ public abstract class Actor {
     protected boolean antennae;
     //TODO Put in gills if they actually exist.
     //TODO Piercings
-    protected List<Cock> cocks = new ArrayList<>();
-    protected List<BreastRow> breasts = new ArrayList<>();
+    protected List<Cock> cocks = new ArrayList<Cock>();
+    protected int numberOfBalls;
+    protected double ballSize;
+    protected List<BreastRow> breasts = new ArrayList<BreastRow>();
     protected Vagina vagina;
     
     public String getName() {
@@ -351,6 +353,11 @@ public abstract class Actor {
         return this.getCockCount() > 0;
     }
 
+    public int getBalls() { return this.numberOfBalls; }
+    public Actor setBalls(int count) { this.numberOfBalls = count; return this; }
+    public double getBallSize() { return this.ballSize; }
+    public Actor setBallSize(double size) { this.ballSize = size; return this; }
+    
     public boolean hasVagina() {
         return this.vagina != null;
     }
@@ -939,13 +946,10 @@ public abstract class Actor {
                 (this.tail.getType() == Tail.Type.RABBIT),
                 (this.ears == EarType.RABBIT ),
                 (this.lowerBody == LowerBodyType.RABBIT));
-        //More than 2 balls reduces bunny score
-        /* TODO Implement Ball Counting
         if (score > 0) {
             score -= getScore(
                     (this.getBalls() > 2));
         }
-        */
         if (score > 0) {
             score += getScore(
                     (this.skin.getType() == Skin.Type.FUR),
@@ -955,7 +959,7 @@ public abstract class Actor {
         return score;
     }
 
-    public int harpyScore() {
+	public int harpyScore() {
         int score = getScore(
                 (this.arms == ArmType.HARPY),
                 (this.hair.getType() == Hair.Type.FEATHER),
