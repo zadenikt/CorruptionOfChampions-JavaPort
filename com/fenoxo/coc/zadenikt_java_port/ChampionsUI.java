@@ -48,6 +48,10 @@ public class ChampionsUI extends JPanel {
 	public void write(String text) {
 		this.output.setText(this.output.getText() + text);
 	}
+	
+	public void writef(String formatText, Object... args) {
+	  this.write(String.format(formatText, args));
+	}
 	@Deprecated // Because I don't want to have to check each individual write().
 	public void write(String text, boolean clear) {
 		if(clear) this.clear();

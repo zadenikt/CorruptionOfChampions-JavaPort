@@ -40,7 +40,7 @@ public abstract class Actor {
   public int corruption;
   public int health, lust, fatigue;
   public int xp, level;
-  public int xpTease, levelTease;
+  public int xpTease, teaseLevel;
   public int gems;
   protected Set<Perk> perks = new HashSet<>();
   protected Set<StatusEffect> statusEffects = new HashSet<>();
@@ -50,26 +50,26 @@ public abstract class Actor {
   protected Item itemSlots[] = {null, null, null}; //This can be increased by setItemSlotsMax()
   //protected int itemSlotCounts[] = {0, 0, 0};
 
-  public double femininity, height, thickness, tone;
-  public double hips, butt;
-  //Don't put a beard in (abandoned feature), but leave this todo here just in case.
-  public Hair hair;
-  public EyeType eyes;
-  public Skin skin;
-  public FaceType face;
-  public TongueType tongue;
-  public EarType ears;
-  public ArmType arms;
-  public HornType horns;
-  public WingType wings;
-  public LowerBodyType lowerBody;
-  public Tail tail;
-  public boolean hasAntennae;
+  protected double femininity, height, thickness, tone;
+  protected double hips, butt;
+  //Don't put a beard in (abandoned feature), but leave this TODO here just in case.
+  protected Hair hair;
+  protected EyeType eyes;
+  protected Skin skin;
+  protected FaceType face;
+  protected TongueType tongue;
+  protected EarType ears;
+  protected ArmType arms;
+  protected HornType horns;
+  protected WingType wings;
+  protected LowerBodyType lowerBody;
+  protected Tail tail;
+  protected boolean hasAntennae;
   //TODO Put in gills if they actually exist.
   //TODO Piercings
-  public List<Cock> cocks = new ArrayList<>();
-  public List<BreastRow> breasts = new ArrayList<>();
-  public Vagina vagina;
+  protected List<Cock> cocks = new ArrayList<>();
+  protected List<BreastRow> breasts = new ArrayList<>();
+  protected Vagina vagina;
 
   public String getName() {
     return this.name;
@@ -151,35 +151,27 @@ public abstract class Actor {
     return this.level;
   }
 
-  public int getXP() {
-    return this.xp;
-  }
-
-  public int getXPToLevelUp() {
+  public int getXpToLevelUp() {
     return this.getLevel() * 100;
   }
 
-  public int getXPToLevelUpRemaining() {
-    return this.getXPToLevelUp() - this.getXP();
+  public int getXpToLevelUpRemaining() {
+    return this.getXpToLevelUp() - this.getXp();
   }
 
-  public int getLevelTease() {
-    return this.levelTease;
+  public int getTeaseLevel() {
+    return this.teaseLevel;
   }
 
-  public int getXPTease() {
-    return this.xpTease;
-  }
-
-  public int getXPToLevelUpTease() {
-    return this.getLevelTease() < 5
-        ? (int) (Math.floor(10 + (5 * Math.pow(this.getLevelTease() + 1, 2))))
+  public int getXpToLevelUpTease() {
+    return this.getTeaseLevel() < 5
+        ? (10 + (5 * (this.getTeaseLevel() + 1) * (this.getTeaseLevel() + 1)))
         : -1;
     // TODO Is this the right formula? *Shudder*...
   }
 
-  public int getXPToLevelUpTeaseRemaining() {
-    return this.getXPToLevelUpTease() - this.getXPTease();
+  public int getXpRemainingToLevelUpTease() {
+    return this.getXpToLevelUpTease() - this.getXpTease();
   }
 
   public Gender getGender() {
@@ -311,6 +303,10 @@ public abstract class Actor {
         && this.tail.getType() != Tail.Type.NONE;
   }
 
+  public FaceType getFace() {
+    return this.face;
+  }
+  
   public void addPerk(Perk p) {
     if (!this.hasPerk(p)) {
       this.perks.add(p);
@@ -342,12 +338,12 @@ public abstract class Actor {
     return true;
   }
   public void removeItem(int slot) {
-    if (this.itemSlots[slot - 1] == null) {
+    if (this.itemSlots[slot] == null) {
       return;
     }
-    this.itemSlots[slot - 1].count--;
-    if (this.itemSlots[slot - 1].count == 0) {
-      this.itemSlots[slot - 1] = null;
+    this.itemSlots[slot].count--;
+    if (this.itemSlots[slot].count == 0) {
+      this.itemSlots[slot] = null;
     }
   }
 
@@ -397,7 +393,7 @@ public abstract class Actor {
   }
 
   public void equipWeapon(int slot) {
-    Weapon w = (Weapon)this.itemSlots[slot - 1];
+    Weapon w = (Weapon)this.itemSlots[slot];
     this.removeItem(slot);
     this.equipWeapon(w);
   }
@@ -424,7 +420,10 @@ public abstract class Actor {
   }
 
   public void equipArmour(int slot) {
-    Armour a = (Armour)this.itemSlots[slot - 1];
+    if (!(this.itemSlots[slot] instanceof Armour)) {
+      return;
+    }
+    Armour a = (Armour)this.itemSlots[slot];
     this.removeItem(slot);
     this.equipArmour(a);
   }
@@ -492,7 +491,7 @@ public abstract class Actor {
            + " and a hint of muscle underneath it"
        : "a wide, cushiony body")
            + ((curvy) ? " and plenty of jiggle on your curves" : ""))
-    : //Chunky monkey
+    : // Chunky monkey.
         ((isHeavyweight()) ? "an extremely thickset frame and so much muscle others would find you"
             + " harder to move than a huge boulder"
        : (isMiddleweight()) ? "a very wide body and enough muscle to make you look like a tank"
@@ -950,5 +949,177 @@ public abstract class Actor {
            : FEATHERWEIGHT;
     }
   }
->>>>>>> b05e68b2a09c2c96770b580b40f82e65677bd34f
+
+  public int getXp() {
+    return this.xp;
+  }
+
+  public void setXp(int xp) {
+    this.xp = xp;
+  }
+
+  public int getXpTease() {
+    return this.xpTease;
+  }
+
+  public void setXpTease(int xpTease) {
+    this.xpTease = xpTease;
+  }
+
+  public int getGems() {
+    return this.gems;
+  }
+
+  public void setGems(int gems) {
+    this.gems = gems;
+  }
+
+  public Set<Perk> getPerks() {
+    return this.perks;
+  }
+
+  public void setPerks(Set<Perk> perks) {
+    this.perks = perks;
+  }
+
+  public Set<StatusEffect> getStatusEffects() {
+    return this.statusEffects;
+  }
+
+  public void setStatusEffects(Set<StatusEffect> statusEffects) {
+    this.statusEffects = statusEffects;
+  }
+
+  public double getFemininity() {
+    return this.femininity;
+  }
+
+  public void setFemininity(double femininity) {
+    this.femininity = femininity;
+  }
+
+  public double getHeight() {
+    return this.height;
+  }
+
+  public void setHeight(double height) {
+    this.height = height;
+  }
+
+  public double getHips() {
+    return this.hips;
+  }
+
+  public void setHips(double hips) {
+    this.hips = hips;
+  }
+
+  public double getButt() {
+    return this.butt;
+  }
+
+  public void setButt(double butt) {
+    this.butt = butt;
+  }
+
+  public Hair getHair() {
+    return this.hair;
+  }
+
+  public void setHair(Hair hair) {
+    this.hair = hair;
+  }
+
+  public EyeType getEyes() {
+    return this.eyes;
+  }
+
+  public void setEyes(EyeType eyes) {
+    this.eyes = eyes;
+  }
+
+  public Skin getSkin() {
+    return this.skin;
+  }
+
+  public void setSkin(Skin skin) {
+    this.skin = skin;
+  }
+
+  public TongueType getTongue() {
+    return this.tongue;
+  }
+
+  public void setTongue(TongueType tongue) {
+    this.tongue = tongue;
+  }
+
+  public EarType getEars() {
+    return this.ears;
+  }
+
+  public void setEars(EarType ears) {
+    this.ears = ears;
+  }
+
+  public ArmType getArms() {
+    return this.arms;
+  }
+
+  public void setArms(ArmType arms) {
+    this.arms = arms;
+  }
+
+  public HornType getHorns() {
+    return this.horns;
+  }
+
+  public void setHorns(HornType horns) {
+    this.horns = horns;
+  }
+
+  public WingType getWings() {
+    return this.wings;
+  }
+
+  public void setWings(WingType wings) {
+    this.wings = wings;
+  }
+
+  public LowerBodyType getLowerBody() {
+    return this.lowerBody;
+  }
+
+  public void setLowerBody(LowerBodyType lowerBody) {
+    this.lowerBody = lowerBody;
+  }
+
+  public Tail getTail() {
+    return this.tail;
+  }
+
+  public void setTail(Tail tail) {
+    this.tail = tail;
+  }
+
+  public boolean isHasAntennae() {
+    return this.hasAntennae;
+  }
+
+  public void setHasAntennae(boolean hasAntennae) {
+    this.hasAntennae = hasAntennae;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public void setFace(FaceType face) {
+    this.face = face;
+  }
+  
 }
