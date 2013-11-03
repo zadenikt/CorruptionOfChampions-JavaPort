@@ -96,6 +96,7 @@ public class SceneCamp implements Scene {
     else if (button == 7) return new SceneSlaves();
     else if (button == 9) return new SceneMasturbate();
     else if (button == 10) return new SceneWait();
-    else */return null;
+    else */
+    throw new RuntimeException("Unimplemented");
   }
 }

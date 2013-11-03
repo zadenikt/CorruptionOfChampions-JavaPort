@@ -29,7 +29,7 @@ import com.fenoxo.coc.zadenikt_java_port.equipment.Weapon;
 
 /** NOTES:
  * getXPToLevelUpTease is slightly different than the real algorithm. Maybe.
- *         I couldn't really tell what the real algorithm was doing.
+ *				 I couldn't really tell what the real algorithm was doing.
  *
  */
 
@@ -47,7 +47,7 @@ public abstract class Actor {
   protected Weapon weapon;
   protected Armour armour;
 
-  protected Item itemSlots[] = {null, null, null}; //This can be increased by setItemSlotsMax()
+  protected Item itemSlots[] = { null, null, null }; //This can be increased by setItemSlotsMax()
   //protected int itemSlotCounts[] = {0, 0, 0};
 
   protected double femininity, height, thickness, tone;
@@ -1121,5 +1121,4 @@ public abstract class Actor {
   public void setFace(FaceType face) {
     this.face = face;
   }
-  
 }
