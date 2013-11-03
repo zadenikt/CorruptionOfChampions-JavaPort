@@ -17,7 +17,7 @@ public class Game {
 	public static ChampionsUI getUI() { return controller.getUI(); }
 
 	public static Integer getTime() { return getInstance().time; }
-	public static Integer addTime(Integer hours) { // This'd really benefit from POINTERS. Like, a lot.
+	public static Integer addTime(Integer hours) {
 		getInstance().time += hours;
 		while(getInstance().time >= 24) {
 			getInstance().time -= 24;

@@ -8,26 +8,29 @@ import com.fenoxo.coc.zadenikt_java_port.characteristics.Perk;
 
 public class SceneCamp implements Scene {
 	public void displayText(Player me, Actor enemy) {
+		Game.getUI().clear();
+		/* Set up buttons */ {
+			if(Game.getTime() >= 6 && Game.getTime() <= 20) {
+				Game.getUI().setButton(1, "Explore");
+				if(me.hasAnyPlaces()) Game.getUI().setButton(2, "Places");
+			}
+			Game.getUI().setButton(3, "Inventory");
+			//TODO Stash
+			if(Game.getTime() > 4 && Game.getTime() < 23) {
+				if(me.hasAnyFollowers()) Game.getUI().setButton(5, "Followers");
+				if(me.hasAnyLovers()) Game.getUI().setButton(6, "Lovers");
+				if(me.hasAnySlaves()) Game.getUI().setButton(7, "Slaves");
+			}
+			//Button 8 is blank, AFAIK.
+			if(me.getLust() > 30.0) {
+				if(me.hasPerk(Perk.HISTORY_RELIGIOUS) && me.getCorruption() <= 66) Game.getUI().setButton(9, "Meditate");
+				else Game.getUI().setButton(9, "Masturbate");
+			}
+			if(Game.getTime() < 6 || Game.getTime() > 20) Game.getUI().setButton(10, "Sleep");
+			else if(me.getFatigue() > 40 || me.getHealthPercent() <= 0.90) Game.getUI().setButton(10, "Rest");
+			else Game.getUI().setButton(10, "Wait");
+		}
 		// TODO Events (Lines 1-290-ish in camp.as)
-		if(Game.getTime() >= 6 && Game.getTime() <= 20) {
-			Game.getUI().setButton(1, "Explore");
-			if(me.hasAnyPlaces()) Game.getUI().setButton(2, "Places");
-		}
-		Game.getUI().setButton(3, "Inventory");
-		//TODO Stash
-		if(Game.getTime() > 4 && Game.getTime() < 23) {
-			if(me.hasAnyFollowers()) Game.getUI().setButton(5, "Followers");
-			if(me.hasAnyLovers()) Game.getUI().setButton(6, "Lovers");
-			if(me.hasAnySlaves()) Game.getUI().setButton(7, "Slaves");
-		}
-		//Button 8 is blank, AFAIK.
-		if(me.getLust() > 30.0) {
-			if(me.hasPerk(Perk.HISTORY_RELIGIOUS) && me.getCorruption() <= 66) Game.getUI().setButton(9, "Meditate");
-			else Game.getUI().setButton(9, "Masturbate");
-		}
-		if(Game.getTime() < 6 || Game.getTime() > 20) Game.getUI().setButton(10, "Sleep");
-		else if(me.getFatigue() > 40 || me.getHealthPercent() <= 0.90) Game.getUI().setButton(10, "Rest");
-		else Game.getUI().setButton(10, "Wait");
 		if(me.hasFollower("Isabella")) {
 			Game.getUI().write("Your campsite got a lot more comfortable once Isabella moved in.  Carpets cover up much of the barren ground, simple awnings tied to the rocks provide shade, and hand-made wooden furniture provides comfortable places to sit and sleep.");
 			if(Game.getDay() >= 20) Game.getUI().write("You've even managed to carve some artwork into the rocks around the camp's perimeter.");
@@ -49,9 +52,9 @@ public class SceneCamp implements Scene {
 		if(Game.getTime() < 6 || Game.getTime() > 20) Game.getUI().write("It is dark out, made worse by the lack of stars in the sky.  A blood-red moon hangs in the sky, seeming to watch you, but providing little light.  It's far too dark to leave camp.\n");
 		else Game.getUI().write("It's light outside, a good time to explore and forage for supplies with which to fortify your camp.\n");
 	}
-	public Scene action(int button) { // TODO Implement
-		/*if(button == 1) return new SceneExplore();
-		else if(button == 2) return new ScenePlaces();
+	public Scene action(Player me, Actor enemy, int button) { // TODO Implement
+		if(button == 1) return new SceneExplore();
+		/*else if(button == 2) return new ScenePlaces();
 		else if(button == 3) return new SceneInventory();
 		else if(button == 4) return new SceneStash();
 		else if(button == 5) return new SceneFollowers();

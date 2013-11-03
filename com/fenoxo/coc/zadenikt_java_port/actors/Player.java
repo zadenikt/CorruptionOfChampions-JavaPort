@@ -10,6 +10,7 @@ public class Player extends Actor {
 	protected String notes;
 	protected Map<String, Actor> followers, lovers, slaves;
 	protected ArrayList<Location> explorable, places;
+	protected Integer numberOfTimesExplored;
 	
 	public Player(String playerName) {
 		this.strength = 15;
@@ -35,6 +36,7 @@ public class Player extends Actor {
 		this.slaves = new HashMap<String, Actor>();
 		this.explorable = new ArrayList<Location>();
 		this.places = new ArrayList<Location>();
+		this.numberOfTimesExplored = 0;
 	}
 	
 	public Player setNotes(String notes) { this.notes = notes; return this; }
@@ -67,4 +69,7 @@ public class Player extends Actor {
 	public Player removePlace(Location place) { this.places.remove(place); return this; }
 	public Boolean canExplorePlace(Location place) { return this.places.contains(place); }
 	public Boolean hasAnyPlaces() { return !this.places.isEmpty(); }
+	
+	public Integer getNumberOfTimesExplored() { return this.numberOfTimesExplored; }
+	public Integer increaseNumberOfTimesExplored() { return (this.numberOfTimesExplored += 1); }
 }

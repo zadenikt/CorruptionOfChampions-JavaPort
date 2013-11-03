@@ -714,7 +714,7 @@ public class SceneAppearance implements Scene {
 		Game.getUI().setButton(1, "Next");
 	}
 	
-	public Scene action(int button) {
+	public Scene action(Player me, Actor enemy, int button) {
 		if(button == 1) {
 			System.out.println("Implement me!!!"); //TODO
 		}
