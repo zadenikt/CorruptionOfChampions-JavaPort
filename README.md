@@ -21,7 +21,3 @@ TODOs
  * Add an `InventoryFullScene.java` file for when you try to pick up an item, while also having a full inventory.
  * Implement followers', lovers', slaves' variables in subclasses. Look at `ActorRathazul.java` for example.
  * Implement location discovery.
-
-### Perk.java ###
-
- * Add all the perks. Yeah, I'm too lazy. [Wiki](http://corruptionofchampions.wikispaces.com/Perks).
