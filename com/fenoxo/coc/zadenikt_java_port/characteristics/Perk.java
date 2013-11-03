@@ -43,7 +43,7 @@ public class Perk {
   public static final Perk LEVELUP_PRECISION = new Perk("Precision");
   public static final Perk LEVELUP_SPELLPOWER = new Perk("Spellpower");
   public static final Perk LEVELUP_MAGE = new Perk("Mage");
-  public static final Perk LEVELUP_FERTILITY+ = new Perk("Fertility+");
+  public static final Perk LEVELUP_FERTILITY_PLUS = new Perk("Fertility+");
   public static final Perk LEVELUP_HOT_BLOODED = new Perk("Hot Blooded");
   public static final Perk LEVELUP_CORRUPTED_LIBIDO = new Perk("Corrupted Libido");
   public static final Perk LEVELUP_SEDUCTION = new Perk("Seduction");
@@ -102,7 +102,7 @@ public class Perk {
   public static final Perk EVENT_PERK_HELLFIRE = new Perk("Hellfire");
   public static final Perk EVENT_PERK_LUSTSTICK_ADAPTED = new Perk("Luststick Adapted");
   public static final Perk EVENT_PERK_MAGICAL_FERTILITY = new Perk("Magical Fertility");
-  public static final Perk EVENT_PERK_MAGICAL VIRILITY = new Perk("Magical Virility");
+  public static final Perk EVENT_PERK_MAGICAL_VIRILITY = new Perk("Magical Virility");
   public static final Perk EVENT_PERK_MARBLES_MILK = new Perk("Marble's Milk");
   public static final Perk EVENT_PERK_MARBLE_RESISTANCE = new Perk("Marble Resistance");
   public static final Perk EVENT_PERK_MARAES_GIFT_BUTTSLUT = new Perk("Marae's Gift - Buttslut");

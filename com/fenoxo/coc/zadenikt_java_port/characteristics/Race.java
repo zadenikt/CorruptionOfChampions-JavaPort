@@ -3,50 +3,50 @@ package com.fenoxo.coc.zadenikt_java_port.characteristics;
 import com.fenoxo.coc.zadenikt_java_port.actors.Actor;
 
 public enum Race {
-	HUMAN("human"),
-	CENTAUR("centaur"),
-	MY_LITTLE_PONY("pony-kin"),
-	CAT("cat-boy", "cat-girl"),
-	LIZARD("lizan", "male lizan", "female lizan", "hermaphrodite lizan"),
-	DRAGON("dragon-man", "dragon-girl"),
-	DOG("dog-morph"),
-	FOX("fox-morph", "fox-girl"),
-	KITSUNE("kitsune"),
-	HORSE("equine-morph"),
-	MINOTAUR("minotaur-morph"),
-	COW("cow-morph", "cow-girl"),
-	BEE("bee-morph"),
-	GOBLIN("goblin"),
-	DEMON("demon-morph"),
-	SHARK("shark-morph"),
-	RABBIT("bunny-boy", "bunny-girl"),
-	HARPY("avian", "harpy"),
-	SPIDER("spider-morph", "spider-girl"),
-	DRIDER("drider"),
-	KANGAROO("kangaroo-morph"),
-	NAGA("naga"),
-	GOO("goo-boi", "goo-girl"),
-	SEMI_MUTANT("somewhat human mutant"),
-	MUTANT("corrupted mutant");
-	
-	private String none, male, female, hermaphrodite;
+  HUMAN("human"),
+  CENTAUR("centaur"),
+  MY_LITTLE_PONY("pony-kin"),
+  CAT("cat-boy", "cat-girl"),
+  LIZARD("lizan", "male lizan", "female lizan", "hermaphrodite lizan"),
+  DRAGON("dragon-man", "dragon-girl"),
+  DOG("dog-morph"),
+  FOX("fox-morph", "fox-girl"),
+  KITSUNE("kitsune"),
+  HORSE("equine-morph"),
+  MINOTAUR("minotaur-morph"),
+  COW("cow-morph", "cow-girl"),
+  BEE("bee-morph"),
+  GOBLIN("goblin"),
+  DEMON("demon-morph"),
+  SHARK("shark-morph"),
+  RABBIT("bunny-boy", "bunny-girl"),
+  HARPY("avian", "harpy"),
+  SPIDER("spider-morph", "spider-girl"),
+  DRIDER("drider"),
+  KANGAROO("kangaroo-morph"),
+  NAGA("naga"),
+  GOO("goo-boi", "goo-girl"),
+  SEMI_MUTANT("somewhat human mutant"),
+  MUTANT("corrupted mutant");
+  
+  private String none, male, female, hermaphrodite;
 
-	private Race(String text) { 
-	  this.none = this.male = this.female = this.hermaphrodite = text; 
-	}
-	
-	private Race(String m, String f) {
-		this.none = this.male = m;
-		this.female = this.hermaphrodite = f;
-	}
-	
-	private Race(String n, String m, String f, String h) {
-		this.none = n;
-		this.male = m;
-		this.female = f;
-		this.hermaphrodite = h;
-	}
-	
+  private Race(String text) { 
+    this.none = this.male = this.female = this.hermaphrodite = text; 
+  }
+  
+  private Race(String m, String f) {
+    this.none = this.male = m;
+    this.female = this.hermaphrodite = f;
+  }
+  
+  private Race(String n, String m, String f, String h) {
+    this.none = n;
+    this.male = m;
+    this.female = f;
+    this.hermaphrodite = h;
+  }
+  
   public String getGenderless() {
     return this.none;
   }
@@ -63,24 +63,24 @@ public enum Race {
     return this.hermaphrodite;
   }
   
-	public String getString(Gender g) {
-		switch(g) {
-		case MALE:
-			return this.getMale();
-		case FEMALE:
-			return this.getFemale();
-		case HERM:
-			return this.getHermaphrodite();
-		case NONE:
-		default:
-			return this.getGenderless();
-		}
-	}
-	
-	public static Race getRace(Actor a) {
-    if (a.lowerBody == LowerBodyType.CENTAUR) {
+  public String getString(Gender g) {
+    switch(g) {
+    case MALE:
+      return this.getMale();
+    case FEMALE:
+      return this.getFemale();
+    case HERM:
+      return this.getHermaphrodite();
+    case NONE:
+    default:
+      return this.getGenderless();
+    }
+  }
+  
+  public static Race getRace(Actor a) {
+    if (a.getLowerBody() == LowerBodyType.CENTAUR) {
       return CENTAUR;
-    } else if (a.lowerBody == LowerBodyType.MY_LITTLE_PONY) {
+    } else if (a.getLowerBody() == LowerBodyType.MY_LITTLE_PONY) {
       return MY_LITTLE_PONY;
     } else if (a.catScore() >= 4) {
       return CAT;
@@ -113,7 +113,7 @@ public enum Race {
     } else if (a.harpyScore() >= 4) {
       return HARPY;
     } else if (a.spiderScore() >= 4) {
-      return (a.lowerBody == LowerBodyType.DRIDER) ? DRIDER : SPIDER;
+      return (a.getLowerBody() == LowerBodyType.DRIDER) ? DRIDER : SPIDER;
     } else if (a.kangarooScore() >= 4) {
       return KANGAROO;
     } else if (a.nagaScore() >= 4) {
@@ -125,7 +125,7 @@ public enum Race {
     } else {
       return HUMAN;
     }
-	}
+  }
 
   public static String get(Actor a) {
     return getRace(a).getString(a.getGender());
