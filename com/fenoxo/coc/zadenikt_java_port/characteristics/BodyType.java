@@ -15,8 +15,11 @@ public enum BodyType {
 	}
 	
 	public String getName(Gender g) {
-		if(g == Gender.MALE) return this.m;
-		else if(g == Gender.FEMALE) return this.f;
-		else throw new IllegalArgumentException();
+    if (g == Gender.MALE) {
+      return this.m;
+    } else if (g == Gender.FEMALE) {
+      return this.f;
+    }
+    throw new IllegalArgumentException();
 	}
 }
