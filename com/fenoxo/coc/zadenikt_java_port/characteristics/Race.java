@@ -1,6 +1,7 @@
 package com.fenoxo.coc.zadenikt_java_port.characteristics;
 
 import com.fenoxo.coc.zadenikt_java_port.actors.Actor;
+import com.fenoxo.coc.zadenikt_java_port.util.Describer;
 
 public enum Race {
   HUMAN("human"),
@@ -82,46 +83,46 @@ public enum Race {
       return CENTAUR;
     } else if (a.getLowerBody() == LowerBodyType.MY_LITTLE_PONY) {
       return MY_LITTLE_PONY;
-    } else if (a.catScore() >= 4) {
+    } else if (Describer.catScore(a) >= 4) {
       return CAT;
-    } else if (a.lizardScore() >= 4) {
+    } else if (Describer.lizardScore(a) >= 4) {
       return LIZARD;
-    } else if (a.dragonScore() >= 4) {
+    } else if (Describer.dragonScore(a) >= 4) {
       return DRAGON;
-    } else if (a.dogScore() >= 4) {
+    } else if (Describer.dogScore(a) >= 4) {
       return DOG;
-    } else if (a.foxScore() >= 4) {
+    } else if (Describer.foxScore(a) >= 4) {
       return FOX;
-    } else if (a.kitsuneScore() >= 4) {
+    } else if (Describer.kitsuneScore(a) >= 4) {
       return KITSUNE;
-    } else if (a.horseScore() >= 3) {
+    } else if (Describer.horseScore(a) >= 3) {
       return HORSE;
-    } else if (a.minotaurScore() >= 4) {
+    } else if (Describer.minotaurScore(a) >= 4) {
       return MINOTAUR;
-    } else if (a.cowScore() >= 6) {
+    } else if (Describer.cowScore(a) >= 6) {
       return COW;
-    } else if (a.beeScore() >= 5) {
+    } else if (Describer.beeScore(a) >= 5) {
       return BEE;
-    } else if (a.goblinScore() >= 5) {
+    } else if (Describer.goblinScore(a) >= 5) {
       return GOBLIN;
-    } else if (a.demonScore() >= 5) {
+    } else if (Describer.demonScore(a) >= 5) {
       return DEMON;
-    } else if (a.sharkScore() >= 3) {
+    } else if (Describer.sharkScore(a) >= 3) {
       return SHARK;
-    } else if (a.rabbitScore() >= 4) {
+    } else if (Describer.rabbitScore(a) >= 4) {
       return RABBIT;
-    } else if (a.harpyScore() >= 4) {
+    } else if (Describer.harpyScore(a) >= 4) {
       return HARPY;
-    } else if (a.spiderScore() >= 4) {
+    } else if (Describer.spiderScore(a) >= 4) {
       return (a.getLowerBody() == LowerBodyType.DRIDER) ? DRIDER : SPIDER;
-    } else if (a.kangarooScore() >= 4) {
+    } else if (Describer.kangarooScore(a) >= 4) {
       return KANGAROO;
-    } else if (a.nagaScore() >= 4) {
+    } else if (Describer.nagaScore(a) >= 4) {
       return NAGA; // a.nagaScore()?
-    } else if (a.gooScore() >= 3) {
+    } else if (Describer.gooScore(a) >= 3) {
       return GOO;
-    } else if (a.mutantScore() >= 5) {
-      return (a.humanScore() >= 5) ? SEMI_MUTANT : MUTANT;
+    } else if (Describer.mutantScore(a) >= 5) {
+      return (Describer.humanScore(a) >= 5) ? SEMI_MUTANT : MUTANT;
     } else {
       return HUMAN;
     }

@@ -1,8 +1,8 @@
 package com.fenoxo.coc.zadenikt_java_port.characteristics;
 
 public class Tail {
-	protected Type type;
-	protected double venom;
+	private Type type;
+	private double venom;
 	
 	public Tail(Type type, double venom) {
 		this.type = type;
@@ -15,7 +15,7 @@ public class Tail {
 	public double depleteVenom(double amount) { return this.venom -= amount; }
 	public void setVenom(double venom) { this.venom = venom; }
 	
-	public enum Type {
+	public enum Type { // TODO Recharge amounts
 		NONE,
 		HORSE,
 		DOG,

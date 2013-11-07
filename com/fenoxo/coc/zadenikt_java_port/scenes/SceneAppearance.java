@@ -4,6 +4,7 @@ import com.fenoxo.coc.zadenikt_java_port.Game;
 import com.fenoxo.coc.zadenikt_java_port.actors.Actor;
 import com.fenoxo.coc.zadenikt_java_port.actors.Player;
 import com.fenoxo.coc.zadenikt_java_port.characteristics.Race;
+import com.fenoxo.coc.zadenikt_java_port.util.Describer;
 
 public class SceneAppearance implements Scene {
   public void displayText(Player me, Actor enemy) {
@@ -17,7 +18,7 @@ public class SceneAppearance implements Scene {
     //Height
     Game.getUI().writef(
         "You are a %d foot %d inch tall %s, with %s. ",
-        (me.getHeight()/12), (me.getHeight()%12), Race.get(me), me.describeBodyType());
+        (me.getHeight()/12), (me.getHeight()%12), Race.get(me), Describer.describeBodyType(me));
     //Equipment
     Game.getUI().writef(
         "<b>You are currently wearing your %s and using your %s as a weapon.</b> ",
@@ -30,19 +31,19 @@ public class SceneAppearance implements Scene {
       switch(me.getSkin().getType()) {
       case FUR:
         Game.getUI().writef(
-            "A coat of %s decorates your muzzle. ", 
-            me.getSkin().describe());
+            "A coat of %s decorates your muzzle. ",
+            Describer.describeSkin(me));
         break;
       case SCALES:
         Game.getUI().writef(
             "Strangely, %s adorn every inch of your animalistic visage. ",
-            me.getSkin().describe());
+            Describer.describeSkin(me));
         break;
       case NORMAL:
       default:
         Game.getUI().writef(
             "Oddly enough, there's no fur on your animalistic muzzle, just %s. ",
-            me.getSkin().describe());
+            Describer.describeSkin(me));
         break;
       }
       break;

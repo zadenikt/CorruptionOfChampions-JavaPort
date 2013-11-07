@@ -8,24 +8,13 @@ package com.fenoxo.coc.zadenikt_java_port.characteristics;
  **/
 
 public class Cock {
-  private static final int DEFAULT_DIAMETER = 1;
-  private static final double DEFAULT_LENGTH = 4.5;
   protected Type type;
   protected double length, diameter;
 
-  public Cock() {
-    this(Type.NORMAL, DEFAULT_LENGTH, DEFAULT_DIAMETER);
-  }
-
-  public Cock(Type type) {
-    this(type, DEFAULT_LENGTH, DEFAULT_DIAMETER);
-  }
-
   public Cock(double length, double diameter) {
-    this(Type.NORMAL, length, diameter);
+    this(length, diameter, Type.NORMAL);
   }
-
-  public Cock(Type type, double length, double diameter) {
+  public Cock(double length, double diameter, Type type) {
     this.type = type;
     this.length = length;
     this.diameter = diameter;
