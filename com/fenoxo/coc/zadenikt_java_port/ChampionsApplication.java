@@ -5,6 +5,7 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 import com.fenoxo.coc.zadenikt_java_port.util.UIHelper;
 
@@ -33,8 +34,8 @@ public class ChampionsApplication extends JFrame implements WindowListener, Cham
         return this.ui;
     }
     
-    public static void main(String ... args) {
-        JFrame.setDefaultLookAndFeelDecorated(true);
+    public static void main(String ... args) throws Exception {
+    	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         JOptionPane.getRootFrame().setUndecorated(false);
         instance = new ChampionsApplication(args);
         instance.addWindowListener(instance);

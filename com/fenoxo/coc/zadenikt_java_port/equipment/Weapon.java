@@ -4,9 +4,7 @@ import com.fenoxo.coc.zadenikt_java_port.actors.Actor;
 import com.fenoxo.coc.zadenikt_java_port.characteristics.Perk;
 
 public class Weapon extends Item {
-	public static final Weapon FISTS =				null;
-	public static final Weapon DEBUG_GAWDSWORD_OFF =	new Weapon("ClayBld", "Clay Blade",     "slash", "An ancient sword. It seems to be made from clay.",                              100,     1);
-	public static final Weapon DEBUG_GAWDSWORD_ON =	new Weapon("IshtBld", "Ishtar's Blade", "slash", "An ancient sword. It seems to be made from clay. A rainbow aura surrounds it.", 1000000, 9001); //OVAH 9000!!!
+	public static final Weapon FISTS = null;
 	
 	protected int attack;
 	protected Perk perk;
